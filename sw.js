@@ -1,5 +1,5 @@
 /* Roqz Pro Academy offline cache: saves the app shell on first visit, serves it when there's no signal. */
-var CACHE = 'roqz-v1';
+var CACHE = 'roqz-v2';
 
 self.addEventListener('install', function(e){
   e.waitUntil(

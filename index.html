@@ -64,7 +64,9 @@ nav.side a.on{background:var(--ink);color:var(--bg)}
 nav.side a.on .k{color:var(--accent)}
 main{min-width:0;padding-block:28px 96px;padding-left:40px}
 @media (max-width:900px){
-  .shell{grid-template-columns:1fr}
+  .shell{grid-template-columns:minmax(0,1fr)}
+  main{padding-left:0}
+  .hero .id{max-width:none}
   nav.side{position:sticky;top:0;height:auto;border-right:0;border-bottom:1px solid var(--line);background:var(--bg);z-index:5;padding:10px 0;overflow-x:auto}
   nav.side .brand{display:none}
   nav.side ol{flex-direction:row;gap:6px;width:max-content}
