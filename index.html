@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Roqz Pro">
+<meta name="theme-color" content="#ECEFEB">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Roqz Pro Academy</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#ECEFEB; --surface:#F8F9F7; --sunk:#E1E5E0; --ink:#18212B; --muted:#586471; --line:#C6CDC8;
+  --accent:#DE5219; --accent-ink:#FFFFFF; --accent-soft:#FBE7DD;
+  --green:#2C7A4A; --green-soft:#DBEBE0; --amber:#A8701B; --amber-soft:#F6EBD3; --red:#B2392C; --red-soft:#F5DEDA;
+  --chalk:#FFFFFF; --shadow:0 1px 2px rgba(24,33,43,.08), 0 8px 24px rgba(24,33,43,.06);
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F151B; --surface:#171F28; --sunk:#0B1015; --ink:#E7EAED; --muted:#98A4AF; --line:#2A3540;
+    --accent:#F26B32; --accent-ink:#141414; --accent-soft:#3A2015;
+    --green:#4DB47A; --green-soft:#17301F; --amber:#D9A650; --amber-soft:#332812; --red:#E36A5C; --red-soft:#3A1B17;
+    --chalk:#1D2732; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --surface:#171F28; --sunk:#0B1015; --ink:#E7EAED; --muted:#98A4AF; --line:#2A3540;
+  --accent:#F26B32; --accent-ink:#141414; --accent-soft:#3A2015;
+  --green:#4DB47A; --green-soft:#17301F; --amber:#D9A650; --amber-soft:#332812; --red:#E36A5C; --red-soft:#3A1B17;
+  --chalk:#1D2732; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.02;margin:0;text-wrap:balance;letter-spacing:.005em}
+h1{font-size:clamp(3rem,8vw,5.6rem);font-weight:800;text-transform:uppercase}
+h2{font-size:clamp(2rem,4vw,2.9rem);font-weight:700;text-transform:uppercase}
+h3{font-size:1.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+h4{font-size:1.15rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-family:var(--display)}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+.shell{display:grid;grid-template-columns:230px minmax(0,1fr);gap:0;max-width:1240px;margin:0 auto;padding-inline:16px}
+nav.side{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding-block:28px;padding-right:20px;border-right:1px solid var(--line);scrollbar-width:thin}
+nav.side .brand{font-family:var(--display);font-weight:800;font-size:1.5rem;text-transform:uppercase;line-height:1;margin-bottom:22px}
+nav.side .brand span{color:var(--accent)}
+nav.side ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+nav.side a{display:grid;grid-template-columns:32px 1fr;gap:6px;align-items:baseline;padding:6px 8px;border-radius:4px;color:var(--ink);text-decoration:none;font-size:.9rem}
+nav.side a .k{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+nav.side a:hover,nav.side a:focus-visible{background:var(--sunk);outline:none}
+nav.side a.on{background:var(--ink);color:var(--bg)}
+nav.side a.on .k{color:var(--accent)}
+main{min-width:0;padding-block:28px 96px;padding-left:40px}
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  nav.side{position:sticky;top:0;height:auto;border-right:0;border-bottom:1px solid var(--line);background:var(--bg);z-index:5;padding:10px 0;overflow-x:auto}
+  nav.side .brand{display:none}
+  nav.side ol{flex-direction:row;gap:6px;width:max-content}
+  nav.side a{grid-template-columns:auto;gap:0;padding:6px 10px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;font-size:.82rem}
+  nav.side a .k{display:none}
+  main{padding-left:0}
+}
+section.mod{padding-block:40px 56px;border-bottom:1px solid var(--line)}
+section.mod:last-child{border-bottom:0}
+.modhead{display:grid;gap:8px;margin-bottom:26px}
+.modhead .lede{max-width:66ch;color:var(--muted);font-size:1.05rem}
+.prose{max-width:68ch;display:grid;gap:14px}
+.prose ul,.prose ol{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.prose li::marker{color:var(--accent)}
+.stack{display:grid;gap:18px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:start}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.panel.flat{background:transparent}
+.chalkboard{background:var(--ink);color:var(--bg);border-radius:6px;padding:22px 24px;position:relative;overflow:hidden}
+.chalkboard h3,.chalkboard h4{color:var(--bg)}
+.chalkboard .eyebrow{color:color-mix(in srgb,var(--bg) 60%,transparent)}
+.chalkboard em{color:var(--accent);font-style:normal;font-weight:600}
+.callout{border-left:4px solid var(--accent);padding:10px 16px;background:var(--accent-soft);border-radius:0 6px 6px 0;max-width:68ch}
+.callout.green{border-color:var(--green);background:var(--green-soft)}
+.callout.amber{border-color:var(--amber);background:var(--amber-soft)}
+.callout.red{border-color:var(--red);background:var(--red-soft)}
+.callout strong{font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:1.05rem}
+.rule{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.rule:last-child{border-bottom:1px solid var(--line)}
+.rule .n{font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--accent);line-height:1;min-width:34px}
+.rule strong{display:block;font-weight:600}
+.rule span{color:var(--muted);font-size:.95rem}
+
+/* ratings */
+.ratings{display:grid;gap:22px}
+.rgroup h4{margin-bottom:8px;color:var(--muted)}
+.rrow{display:grid;grid-template-columns:minmax(120px,170px) 1fr 44px 56px;gap:10px;align-items:center;padding:4px 0;font-size:.92rem}
+.rrow .bar{position:relative;height:12px;background:var(--sunk);border-radius:2px;overflow:hidden}
+.rrow .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--muted);border-radius:2px}
+.rrow .bar b{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:2px;width:0}
+.rrow .v{font-family:var(--mono);font-size:.8rem;color:var(--muted);text-align:right}
+.rrow input{width:56px;padding:3px 6px;font:inherit;font-family:var(--mono);font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px}
+.rrow input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:520px){.rrow{grid-template-columns:110px 1fr 36px 52px;gap:6px}}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;vertical-align:middle;margin-right:6px;background:var(--muted)}
+.legend i.acc{background:var(--accent)}
+.btn{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:1rem;padding:9px 16px;border-radius:4px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--sunk);color:var(--ink)}
+
+/* ladder */
+.ladder{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.ladder span{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--line);border-radius:3px;color:var(--muted)}
+.ladder span.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ladderbig{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-block:8px}
+.ladderbig div{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:12px 8px;text-align:center}
+.ladderbig div b{display:block;font-family:var(--display);text-transform:uppercase;font-size:1.05rem;letter-spacing:.03em}
+.ladderbig div small{display:block;color:var(--muted);font-size:.72rem;line-height:1.3;margin-top:4px}
+.ladderbig div:nth-child(n+5){border-color:var(--accent)}
+@media (max-width:760px){.ladderbig{grid-template-columns:repeat(4,1fr)}}
+
+/* drill card */
+.drill{background:var(--surface);border:1px solid var(--line);border-radius:6px;display:grid;grid-template-columns:1fr;overflow:hidden}
+.drill header{padding:14px 18px 10px;border-bottom:1px solid var(--line);display:grid;gap:8px}
+.drill header .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.drill header .meta{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.drill .body{padding:14px 18px 16px;display:grid;gap:12px;font-size:.95rem}
+.drill dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.drill dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.drill dd{margin:0}
+.drill ul{margin:0;padding-left:1.1em;display:grid;gap:3px}
+.drill .solo{background:var(--sunk);border-radius:4px;padding:8px 12px;font-size:.9rem}
+.drill .solo b{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:2px}
+.drill .next{color:var(--green);font-weight:500;font-size:.9rem}
+.drill .next::before{content:"→ ";}
+.drills{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-items:start}
+@media (max-width:400px){.drills{grid-template-columns:1fr}}
+
+/* tables */
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:2px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:600}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--sunk);color:var(--ink)}
+.tag.acc{background:var(--accent);color:var(--accent-ink)}
+.tag.g{background:var(--green-soft);color:var(--green)}
+.tag.a{background:var(--amber-soft);color:var(--amber)}
+.tag.r{background:var(--red-soft);color:var(--red)}
+
+/* decision flow */
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--display);font-size:1.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.flow span{padding:6px 14px;background:var(--surface);border:1px solid var(--line);border-radius:4px}
+.flow i{color:var(--accent);font-style:normal}
+
+/* scenarios */
+.scen{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.scen .pitch{background:var(--chalk);padding:16px 18px;border-bottom:1px solid var(--line)}
+.scen .pitch .eyebrow{margin-bottom:6px}
+.scen .q{font-size:1.02rem;max-width:68ch}
+.scen .opts{display:grid;gap:8px;padding:14px 18px}
+.scen .opts button{text-align:left;font:inherit;font-size:.95rem;padding:10px 14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer;display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:start}
+.scen .opts button:hover{border-color:var(--ink)}
+.scen .opts button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.scen .opts button .l{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--muted)}
+.scen .opts button.pick{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.scen .opts button.right{border-color:var(--green);background:var(--green-soft)}
+.scen .opts button.right .l{color:var(--green)}
+.scen .opts button.wrong{border-color:var(--red);background:var(--red-soft)}
+.scen .opts button.wrong .l{color:var(--red)}
+.scen .opts button:disabled{cursor:default}
+.scen .reveal{display:none;padding:0 18px 18px;font-size:.94rem}
+.scen.done .reveal{display:grid;gap:10px}
+.scen .reveal .verdict{font-family:var(--display);text-transform:uppercase;font-size:1.3rem;letter-spacing:.03em}
+.scen .reveal .verdict.ok{color:var(--green)}
+.scen .reveal .verdict.no{color:var(--red)}
+.scen .reveal dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.scen .reveal dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px;white-space:nowrap}
+.scen .reveal dd{margin:0}
+.scen .reveal .principle{border-top:1px dashed var(--line);padding-top:10px;font-weight:500}
+.scores{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.scores b{font-family:var(--display);font-size:1.6rem;color:var(--ink);font-weight:800}
+
+/* week grid */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.week .day{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:10px;font-size:.84rem;min-height:150px;display:grid;align-content:start;gap:6px}
+.week .day b{font-family:var(--display);text-transform:uppercase;font-size:1.1rem;letter-spacing:.03em}
+.week .day .t{font-family:var(--mono);font-size:.66rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.week .day.match{border-color:var(--accent);background:var(--accent-soft)}
+.week .day.rest{background:transparent;border-style:dashed}
+@media (max-width:900px){.week{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:560px){.week{grid-template-columns:repeat(2,1fr)}}
+.session{display:grid;grid-template-columns:70px 1fr;gap:6px 14px;font-size:.93rem}
+.session .t{font-family:var(--mono);font-size:.74rem;color:var(--muted);padding-top:3px}
+.phase{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.phase:last-child{border-bottom:1px solid var(--line)}
+.phase .when{font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;line-height:1.1}
+.phase .when small{display:block;font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:none;letter-spacing:.06em;margin-top:4px;font-weight:400}
+.phase ul{margin:6px 0 0;padding-left:1.1em;display:grid;gap:3px;font-size:.94rem}
+@media (max-width:560px){.phase{grid-template-columns:1fr}}
+.kpi{display:grid;grid-template-columns:1fr auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.93rem}
+.kpi:last-child{border-bottom:0}
+.kpi .target{font-family:var(--mono);font-size:.78rem;color:var(--accent);white-space:nowrap}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line);font-size:.94rem}
+.check:last-child{border-bottom:0}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+textarea{width:100%;min-height:90px;font:inherit;font-size:.92rem;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);resize:vertical}
+textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+label.f{display:grid;gap:5px;font-size:.85rem;color:var(--muted)}
+.hero{padding-block:34px 44px;border-bottom:1px solid var(--line);display:grid;gap:22px}
+.hero .id{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:760px}
+.hero .id div{border-top:2px solid var(--ink);padding-top:6px}
+.hero .id .eyebrow{display:block;margin-bottom:2px}
+.hero .id b{font-family:var(--display);font-size:1.35rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.hero .sub{max-width:62ch;font-size:1.1rem;color:var(--muted)}
+.disclaim{font-size:.82rem;color:var(--muted);max-width:70ch;border-top:1px dashed var(--line);padding-top:10px}
+.small{font-size:.86rem;color:var(--muted)}
+.weapons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.weapon{border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:var(--surface);display:grid;gap:6px}
+.weapon .from{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.weapon b{font-family:var(--display);font-size:1.25rem;text-transform:uppercase;letter-spacing:.02em;font-weight:700}
+.weapon .from i{color:var(--accent);font-style:normal}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:4px;font-family:var(--mono);font-size:.78rem;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="shell">
+<nav class="side" aria-label="Modules">
+  <div class="brand">Roqz<span>.</span>Pro</div>
+  <ol>
+    <li><a href="#m00"><span class="k">00</span>How to use</a></li>
+    <li><a href="#m01"><span class="k">01</span>Profile &amp; identity</a></li>
+    <li><a href="#m02"><span class="k">02</span>Development model</a></li>
+    <li><a href="#m03"><span class="k">03</span>Technical base</a></li>
+    <li><a href="#m04"><span class="k">04</span>Dribbling &amp; 1v1</a></li>
+    <li><a href="#m05"><span class="k">05</span>Carrying at speed</a></li>
+    <li><a href="#m06"><span class="k">06</span>Shooting &amp; finishing</a></li>
+    <li><a href="#m07"><span class="k">07</span>Receive &amp; scan</a></li>
+    <li><a href="#m08"><span class="k">08</span>Football IQ Lab</a></li>
+    <li><a href="#m09"><span class="k">09</span>LW specialist</a></li>
+    <li><a href="#m10"><span class="k">10</span>Physical</a></li>
+    <li><a href="#m11"><span class="k">11</span>Mind</a></li>
+    <li><a href="#m12"><span class="k">12</span>The week</a></li>
+    <li><a href="#m13"><span class="k">13</span>Match review</a></li>
+    <li><a href="#m14"><span class="k">14</span>Testing &amp; roadmap</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">Personal football development academy · Individual Development Plan · v1 · Sep 2026</p>
+    <h1>Roqz Pro</h1>
+  </div>
+  <p class="sub">A complete-player programme with one specialist identity: an explosive, aggressive, intelligent left winger who beats the full-back, arrives in the box, and finishes. Strengths get sharpened into weapons. Weaknesses get treated as current levels, not traits.</p>
+  <div class="id">
+    <div><span class="eyebrow">Player</span><b>Roqeeb · 15</b></div>
+    <div><span class="eyebrow">Position</span><b>LW · LWB/LB</b></div>
+    <div><span class="eyebrow">Foot</span><b>Right (inverted)</b></div>
+    <div><span class="eyebrow">Profile</span><b>Explosive · 10/10 accel</b></div>
+    <div><span class="eyebrow">Elite targets</span><b>Shoot · Dribble · Decide</b></div>
+  </div>
+  <p class="disclaim">This system uses recognised academy and professional player-development principles (progressive overload, game-representative practice, constraints-led design, individual development planning). It is not FA- or UEFA-certified and it does not guarantee professional football. It gives you the best realistic version of yourself and a clear way to prove it on the pitch.</p>
+</header>
+
+<!-- ============================================================ 00 -->
+<section class="mod" id="m00">
+  <div class="modhead">
+    <p class="eyebrow">Module 00</p>
+    <h2>How to use this system</h2>
+    <p class="lede">Fifteen modules. Read 00–02 once. Train from 03–11. Live in 12–14. Everything else is reference you come back to.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h4>The three things that change everything</h4>
+      <div class="stack" style="margin-top:10px">
+        <div class="rule"><span class="n">1</span><div><strong>Every session ends in football.</strong><span>Technique first, but the last 10–15 minutes of every session are at speed, under a constraint, with a decision and an end product (shot, cross, cutback). A drill that never becomes football is a hobby.</span></div></div>
+        <div class="rule"><span class="n">2</span><div><strong>Shooting is the default in the zone.</strong><span>Inside the box with sight of goal, or in your cut-in lane with the defender more than a stride off you: you shoot. A pass from the zone needs a reason. A shot doesn't. This is a rule, not a mood.</span></div></div>
+        <div class="rule"><span class="n">3</span><div><strong>Mistakes get five seconds.</strong><span>Lose the ball → breathe out → cue word → next action (press, run, show). Nothing else is allowed to happen in your head in that window. Confidence is built from repeating this, not from playing well.</span></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Kit you need</h4>
+      <ul style="margin:10px 0 0;padding-left:1.1em;display:grid;gap:5px;font-size:.95rem">
+        <li><b>3+ balls</b> (solo shooting and crossing dies with one ball)</li>
+        <li><b>8–12 flat cones</b> and 2–4 tall cones or poles</li>
+        <li><b>A wall or rebounder</b> — your passing, receiving and first-time-finishing partner</li>
+        <li><b>A goal</b>, or two poles/jumpers on a fence or wall with a target zone marked</li>
+        <li><b>A "defender"</b>: mannequin, bag, bin, or a school bag on a pole — anything with height</li>
+        <li><b>Your phone on a fence</b> — filming 5 minutes of a session and 20 minutes of a match is worth more than any drill in this document</li>
+        <li><b>Skipping rope, resistance band</b> for the physical module</li>
+      </ul>
+      <p class="small" style="margin-top:12px">Sessions are written for 45–60 minutes because that's what a school week allows. Two focused hours beat six distracted ones.</p>
+    </div>
+  </div>
+  <div class="callout amber" style="margin-top:18px"><strong>Honesty rule</strong><br>The ratings in Module 01 are yours. Every six weeks you re-test (Module 14) and re-rate. The system updates from evidence, not feelings. A bad match is a data point, not a verdict.</div>
+</section>
+
+<!-- ============================================================ 01 -->
+<section class="mod" id="m01">
+  <div class="modhead">
+    <p class="eyebrow">Module 01</p>
+    <h2>Profile &amp; player identity</h2>
+    <p class="lede">Your self-assessment, read like a scout would read it — then turned into a plan. The pattern is unmistakable: an explosive athlete with a good football brain for movement, whose technique under speed and pressure hasn't caught up with the body yet, and whose confidence is being set by outcomes instead of process.</p>
+  </div>
+
+  <div class="two" style="margin-bottom:22px">
+    <div class="panel">
+      <h4>What a scout sees</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p><b>Standout trait:</b> 10/10 acceleration with 7/10 off-ball movement and instinct for the back post. That combination is rare and it is exactly what modern wide players are bought for — it is the thing to protect and build around.</p>
+        <p><b>The gap that defines the next 12 months:</b> ball carrying at speed 2/10 next to acceleration 10/10. You have a Ferrari engine bolted to a bicycle's steering. Closing that gap alone changes what kind of player you are.</p>
+        <p><b>The invisible ceiling:</b> confidence 2/10, handling mistakes 3/10, consistency 3/10 — with concentration and competitiveness both 10/10. That is not a soft player. That is a player who cares so much the outcome controls him. The fix is process rules and reps, not pep talks.</p>
+        <p><b>Position fit:</b> right-footed on the left is the inverted-winger profile: cut inside onto the strong foot to shoot or switch, go outside with the weak foot or outside of the right to cross. Your "ping to the far side after beating one" is already a textbook inverted-winger action.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Identity statement</h4>
+      <div class="chalkboard" style="margin-top:8px">
+        <p class="eyebrow">Read before every session and match</p>
+        <p style="font-family:var(--display);font-size:1.5rem;line-height:1.15;text-transform:uppercase;margin-top:8px">I am an <em>explosive, aggressive, intelligent</em> left winger. I press first. I run in behind before anyone else has thought about it. I take the full-back on. I <em>shoot in the zone</em>. I arrive at the back post. When I lose the ball I win it back or I make the next run. I influence the game even when the team is struggling, because my actions don't depend on the score.</p>
+      </div>
+      <p class="small" style="margin-top:10px">"Skill merchant" is banned. Every move in this system has a purpose and an end product.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:12px">Ratings — baseline vs current</h3>
+  <p class="small" style="margin-bottom:12px">Grey is your September 2026 self-assessment. Type a new number after each six-week re-test; orange shows your current level. Saved on this device only.</p>
+  <div class="legend" style="margin-bottom:12px"><span><i></i>Baseline (Sep 2026)</span><span><i class="acc"></i>Current (you update)</span></div>
+  <div class="ratings" id="ratings"></div>
+  <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+    <button class="btn ghost" id="resetRatings" type="button">Clear my updates</button>
+  </div>
+
+  <h3 style="margin:34px 0 12px">Strengths → weapons</h3>
+  <p class="small" style="margin-bottom:12px">A strength is something you can do. A weapon is something the opposition has to plan for. Each one below has a named upgrade path in a later module.</p>
+  <div class="weapons">
+    <div class="weapon"><span class="from">Acceleration + <i>getting in behind</i></span><b>The first-step killer</b><span class="small">Upgrade: carry at speed (05) + timing double movements (09) so the run becomes a shot, not just a run.</span></div>
+    <div class="weapon"><span class="from">Back-post movement + <i>touch towards goal</i></span><b>The far-post finisher</b><span class="small">Upgrade: first-time and two-touch finishing across the keeper from the second six-yard box (06).</span></div>
+    <div class="weapon"><span class="from">Pinging + <i>seeing space after beating one</i></span><b>The switch trigger</b><span class="small">Upgrade: beat one → scan → choose switch vs shoot vs drive (08). Add a driven low cross to the same picture.</span></div>
+    <div class="weapon"><span class="from">Pressing + <i>competitiveness</i></span><b>The trigger presser</b><span class="small">Upgrade: press with a purpose — cut the line to the full-back, win it in the final third, and the win becomes a shot in four seconds (09).</span></div>
+    <div class="weapon"><span class="from">Combining + <i>creating chances</i></span><b>The one-two exit</b><span class="small">Upgrade: receive-under-pressure work (07) means you can combine when marked tight, not only when free.</span></div>
+    <div class="weapon"><span class="from">Concentration 10 + <i>competitive 10</i></span><b>The 90-minute engine</b><span class="small">Upgrade: stamina from 4 to 7 (10) so the brain has legs in minutes 70–90 when games are decided.</span></div>
+  </div>
+
+  <h3 style="margin:34px 0 12px">Weaknesses → projects</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Priority</th><th>Current</th><th>Project name</th><th>Module</th><th>Six-week target</th></tr></thead>
+    <tbody>
+      <tr><td>Shooting / finishing</td><td class="num">5 / 5</td><td>Clean strike + the shoot rule</td><td>06</td><td>8/10 on target in the cut-in test; shoot rule kept in 3 consecutive matches</td></tr>
+      <tr><td>Dribbling / 1v1</td><td class="num">6 / 5</td><td>Two moves, both directions, at speed</td><td>04</td><td>Body feint + inside-outside usable both ways vs active defender</td></tr>
+      <tr><td>Decision-making</td><td class="num">3</td><td>Scan → see → decide pictures</td><td>08</td><td>10 scenarios at 80%+; "hesitation count" in matches halved</td></tr>
+      <tr><td>Receiving under pressure</td><td class="num">3</td><td>Back-foot &amp; half-turn</td><td>07</td><td>Receive facing forward or bounce first-time, no more "stuck with back to goal"</td></tr>
+      <tr><td>Carrying at speed</td><td class="num">2</td><td>Ferrari steering</td><td>05</td><td>Carry gap (time with ball vs without over 30 m) under 1.2 s</td></tr>
+      <tr><td>Scanning</td><td class="num">4</td><td>Two looks before every receive</td><td>07</td><td>Filmed: 2+ scans before 80% of receptions</td></tr>
+      <tr><td>Positioning</td><td class="num">4</td><td>Width, depth, and the second phase</td><td>09</td><td>Know your default position in each of 6 team phases</td></tr>
+      <tr><td>Confidence / composure / consistency</td><td class="num">2 / 3 / 3</td><td>Process over outcome</td><td>11</td><td>Three non-negotiables hit in every match regardless of form</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================================================ 02 -->
+<section class="mod" id="m02">
+  <div class="modhead">
+    <p class="eyebrow">Module 02</p>
+    <h2>The development model</h2>
+    <p class="lede">Every skill in this system climbs the same eight rungs. You don't skip rungs, and you don't stay on one longer than it takes to earn the next. Solo training can reach rung 5 honestly. Rungs 6–8 need people — that's what team training, small-sided games and matches are for.</p>
+  </div>
+  <div class="ladderbig">
+    <div><b>Technique</b><small>Slow, clean, repeatable. Both feet.</small></div>
+    <div><b>Movement</b><small>Same action while moving, from different angles.</small></div>
+    <div><b>Speed</b><small>Match tempo. Still clean.</small></div>
+    <div><b>Pressure</b><small>Time limit, space limit, chased, fatigued.</small></div>
+    <div><b>Decision</b><small>Two or more options; you choose late.</small></div>
+    <div><b>Opponent</b><small>Passive → active → live defender.</small></div>
+    <div><b>Game</b><small>Small-sided, constraints, scoring.</small></div>
+    <div><b>Match</b><small>11v11. Track it. Review it.</small></div>
+  </div>
+  <div class="two" style="margin-top:18px">
+    <div class="panel">
+      <h4>Solo versions of "pressure", "decision" and "opponent"</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p><b>Pressure without a defender:</b> a clock (finish before a count of 3), a shrinking space (cones 1 m closer each set), fatigue (10 s sprint before the action), or consequence (miss = 5 press-ups, and you keep score honestly).</p>
+        <p><b>Decision without a coach:</b> randomise the cue. Number your cones or targets, call a number out loud as late as possible, or use a phone timer that beeps at random intervals. Bounce the ball off an uneven wall so the return is unpredictable. The point is you don't know the answer before the action starts.</p>
+        <p><b>Opponent without a person:</b> a mannequin gives you a fixed reference to attack the front foot of. It is not a defender. Be honest in your log: "vs mannequin" ≠ "vs 1v1". Get real 1v1s at school breaks, at team training, with a mate, with a sibling — even a passive body changes the picture.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>How to know you've earned the next rung</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <ul>
+          <li><b>Technique → Movement:</b> 8/10 clean at slow speed, both feet.</li>
+          <li><b>Movement → Speed:</b> no drop in quality when moving from three different angles.</li>
+          <li><b>Speed → Pressure:</b> quality holds at match tempo for 3 sets.</li>
+          <li><b>Pressure → Decision:</b> quality holds under a clock/space/fatigue constraint.</li>
+          <li><b>Decision → Opponent:</b> you pick the right option 8/10 with a late cue.</li>
+          <li><b>Opponent → Game:</b> works vs an active defender more than half the time.</li>
+          <li><b>Game → Match:</b> you did it in a small-sided game without thinking about it.</li>
+        </ul>
+        <p>Drills below carry a ladder strip showing which rungs they cover. Combine drills in a session so you climb, e.g. 10 min rung 1–2, 15 min rung 3–4, 15 min rung 5–6.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 03 -->
+<section class="mod" id="m03">
+  <div class="modhead">
+    <p class="eyebrow">Module 03</p>
+    <h2>Technical base</h2>
+    <p class="lede">First touch, ball mastery, passing, weak foot, crossing. Not glamorous — but every module after this one leans on it. Each drill lists the wall/rebounder version because that's your daily partner.</p>
+  </div>
+
+  <div class="callout" style="margin-bottom:20px"><strong>The weak-foot contract</strong><br>Your left foot is 4/10 and you play on the left. Every technical drill in this module is done <b>left foot first</b> — the first set is always the weak foot, when you're fresh. Target for month three: left-foot passing and receiving indistinguishable from right in a wall test; left-foot finishing usable from inside the six-yard box and the near post.</div>
+
+  <h3 style="margin-bottom:12px">First touch &amp; receiving (open play)</h3>
+  <div class="drills">
+    <div class="drill">
+      <header><div class="top"><h4>Wall receive — four surfaces</h4><span class="meta">10 min · daily</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>5–8 m from a wall. Two cones 2 m apart marking a "gate" to your side.</dd>
+        <dt>Do</dt><dd>Pass into the wall, receive the return and take the touch <b>through the gate</b>, not back to your feet. Rotate: inside R, inside L, outside R, outside L, sole. 20 touches per surface.</dd>
+        <dt>Cues</dt><dd><ul><li>Touch goes where your next action is, 1–2 m away, never under your feet.</li><li>Receive on the half-turn: hips open, chest facing the pitch not the wall.</li><li>Cushion: foot gives on contact like catching an egg.</li></ul></dd></dl>
+        <div class="solo"><b>Speed it up</b>Move the gate to a random side each rep: call "left/right" out loud as the ball leaves the wall. Then hit the wall harder so the return is faster.</div>
+        <p class="next">Next: 8/10 touches land inside the gate at pace both feet → Module 07 pressure receiving.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Aerial &amp; bouncing first touch</h4><span class="meta">8 min · 3×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Throw or chip the ball up 3–4 m, or drive it high into the wall.</dd>
+        <dt>Do</dt><dd>Kill it with thigh, chest, instep, then take the second touch forward on the move. 10 each surface, each side.</dd>
+        <dt>Cues</dt><dd><ul><li>Get behind the line of flight early; the touch is decided by your feet position, not your foot.</li><li>Second touch goes forward at pace — a winger's aerial touch is a launch, not a stop.</li></ul></dd></dl>
+        <div class="solo"><b>Why it matters for you</b>Switches and long passes to the wide-left player arrive high and fast. If you kill them dead and forward you're 1v1 with the full-back before they've set.</div>
+        <p class="next">Next: chest/thigh touch then sprint 10 m with the ball under control 8/10.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:30px 0 12px">Ball mastery &amp; close control (moving, not stationary)</h3>
+  <div class="drills">
+    <div class="drill">
+      <header><div class="top"><h4>Ten-metre box mastery</h4><span class="meta">8 min · daily warm-up</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>10×10 m box, four cones.</dd>
+        <dt>Do</dt><dd>Move continuously through the box, never stopping: inside-inside, outside-outside, sole rolls, inside-outside same foot, drag-back-turn at each cone edge, L-turn, Cruyff turn. 45 s on / 15 s off × 6, changing pattern each round.</dd>
+        <dt>Cues</dt><dd><ul><li>Head up between every second touch. Look at the far cone, not the ball.</li><li>Ball within one stride at all times; small quick touches.</li><li>Change speed on every exit from a turn — turn slow, leave fast.</li></ul></dd></dl>
+        <div class="solo"><b>Add decision</b>Number the cones 1–4. At random intervals call a number and burst to that cone, then resume. This is also your scanning warm-up.</div>
+        <p class="next">Next: rounds feel easy with head up → move mastery into Module 04 at speed.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Pressure box (shrinking space)</h4><span class="meta">6 min · 2×/week</span></div><div class="ladder"><span>Technique</span><span class="on">Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Same box. Each round move all four cones 1 m closer (10, 8, 6, 4 m).</dd>
+        <dt>Do</dt><dd>Keep the ball moving with turns and changes of direction without leaving the box and without stopping the ball. 30 s per size.</dd>
+        <dt>Cues</dt><dd><ul><li>In the 4 m box you're practising the "small touches near defenders" that Module 05 needs.</li><li>Use the sole and the outside of the foot to change direction without a big backswing.</li></ul></dd></dl>
+        <p class="next">Next: 4 m box for 30 s without the ball escaping → close-control under pressure is real.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:30px 0 12px">Passing &amp; the ping</h3>
+  <div class="drills">
+    <div class="drill">
+      <header><div class="top"><h4>Wall passing ladder</h4><span class="meta">10 min · daily</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Do</dt><dd>Wall at 6 m. 30 s each: one-touch R, one-touch L, two-touch alternating feet, one-touch alternating feet, receive R pass L, receive L pass R, receive on the move across the wall and pass first-time. Count completions.</dd>
+        <dt>Cues</dt><dd><ul><li>Ankle locked, toe up, strike through the middle. Follow through to the target.</li><li>Non-kicking foot beside the ball pointing at the target.</li><li>Every pass has weight and a side: play it to the "far foot" of your imaginary teammate.</li></ul></dd></dl>
+        <div class="solo"><b>Scanning built in</b>Shoulder-check before every reception. Say what you "saw" out loud (a number written on a cone behind you works — read it, then receive).</div>
+        <p class="next">Next: left-foot one-touch count within 90% of right → weak-foot passing is closed as a weakness.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Switch of play — driven &amp; lofted</h4><span class="meta">12 min · 2×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span class="on">Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Full-width area if you can. Target zone 5×5 m at 30–40 m. A second zone at 20 m for the driven ball.</dd>
+        <dt>Do</dt><dd>Dribble 5 m at pace, cut inside onto the right, and in one touch after the cut hit the far zone. 10 lofted, 10 driven, 5 with the left foot to the 20 m zone.</dd>
+        <dt>Cues</dt><dd><ul><li>Lofted: lean back slightly, strike the bottom half, follow through high.</li><li>Driven: over the ball, laces, low follow-through, ball skims.</li><li>Look up during the cut — that look is the scan that finds the switch.</li></ul></dd></dl>
+        <div class="solo"><b>Decision version</b>Place two targets — far zone and a "shot" goal. On the cut, a random call decides which (coin flip before the rep, revealed only when you look up). This is the real picture from your strengths list: beat one, see space, choose.</div>
+        <p class="next">Next: 7/10 in the far zone from a moving cut-in → weapon "switch trigger" is active.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:30px 0 12px">Crossing (3/10 → usable)</h3>
+  <div class="two">
+    <div class="prose">
+      <p>You are right-footed on the left, so your crossing options are different from a left-footer's and you should train them as three distinct deliveries rather than "crossing":</p>
+      <ol>
+        <li><b>The cutback (right foot, from the byline or the corner of the six-yard box)</b> — your highest-value delivery. Pulled back low to the penalty spot area. Technique: inside of the right foot, hips open to the target, clipped not blasted.</li>
+        <li><b>The early whipped cross (right foot, from wide-left, 25–30 m out)</b> — inswinging towards the back post. The ball curls away from the keeper. This suits your "cut inside slightly then deliver" body shape.</li>
+        <li><b>The left-foot driven/low cross from the line</b> — needed when you've gone outside the full-back at pace. Low, hard, between the keeper and defenders. Accuracy over shape.</li>
+      </ol>
+      <p>Priority order is exactly that: 1, then 2, then 3. A 15-year-old inverted winger who owns the cutback and the inswinger is already dangerous.</p>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Three-delivery crossing circuit</h4><span class="meta">15 min · 2×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span class="on">Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Goal. Three target zones marked with cones: (A) penalty spot, (B) back post 2 m out, (C) near post/six-yard line. Balls at three start points: byline, wide 25 m, wide 15 m.</dd>
+        <dt>Do</dt><dd>5 balls each: carry from start at 70% pace, deliver on the move. Cutback → A. Early inswinger → B. Left-foot low drive → C. Count balls that stop or pass inside the zone.</dd>
+        <dt>Cues</dt><dd><ul><li>Look up before the last touch, deliver on the second-last stride, not the last.</li><li>Decide the zone <i>before</i> you arrive, then commit.</li></ul></dd></dl>
+        <div class="solo"><b>Progress</b>Mannequin as a full-back to go past with a touch first. Then random zone call as you approach.</div>
+        <p class="next">Next: 6/15 in zone → 9/15 → deliveries become options in the Module 08 scenarios.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 04 -->
+<section class="mod" id="m04">
+  <div class="modhead">
+    <p class="eyebrow">Module 04</p>
+    <h2>Dribbling &amp; 1v1</h2>
+    <p class="lede">You don't need ten moves. You need two you can do at full speed in either direction, a change of pace that makes both of them work, and the eyes to know which one the defender is asking for.</p>
+  </div>
+
+  <div class="two" style="margin-bottom:22px">
+    <div class="panel">
+      <h4>The 1v1 principle for a fast player</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>With 10/10 acceleration your 1v1 game is not about tricking the defender — it's about <b>creating a moment where they're flat-footed and you're already moving.</b> Every move below is a way to put the defender's weight on the wrong foot for one step. One step is all you need.</p>
+        <p><b>Attack the front foot.</b> Drive straight at the defender's leading foot at pace. They must either turn (you go past on the side they turned away from) or plant (you go past on the side of the planted foot, because it can't push off). The move happens at 1.5–2 m from the defender, not 5 m.</p>
+        <p><b>Read the body:</b> hips open showing you inside → go outside. Square hips → attack the front foot and go either way. Backing off at speed → no move needed, run at them until they stop, then move. Standing tall/flat-footed → stop-start.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Your two core moves and the two developers</h4>
+      <div class="tw"><table style="min-width:0">
+        <thead><tr><th>Move</th><th>When</th><th>Direction for you</th></tr></thead>
+        <tbody>
+          <tr><td>Body feint (drop the shoulder)</td><td>Defender square, jockeying. Fastest move there is and it goes both ways.</td><td>Feint outside → cut inside onto right (shot/switch). Feint inside → outside with left/outside-right (cross).</td></tr>
+          <tr><td>Inside-outside (same foot)</td><td>Defender showing you inside; you sell the cut and go down the line. Also for small spaces near the box.</td><td>Right foot: touch inside, then outside of right past the FB's left. Left foot version later.</td></tr>
+          <tr><td>Scissors / double scissors</td><td>Defender square and you have 2 m of run-up; buys a half-step for the explosive exit.</td><td>Right leg over → explode outside with left; left over → cut inside with right.</td></tr>
+          <tr><td>Stop-start</td><td>Defender running alongside you at speed (the recovery run). Kills their momentum.</td><td>Sole stop with right, they overrun, explode with the outside of the right.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small" style="margin-top:8px">Outside-inside and the chop (Robben cut) come in month three, once the four above work under opposition.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:12px">Progression: unopposed → passive → active → 1v1 → end product → match</h3>
+  <div class="drills">
+    <div class="drill">
+      <header><div class="top"><h4>Move + explode gates</h4><span class="meta">12 min · 3×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Tall cone (the defender) with a 2 m gate either side of it, 8 m of run-up, 10 m of exit space.</dd>
+        <dt>Do</dt><dd>Drive at the cone at 70%, execute one move at 1.5 m, exit through the gate at 100% for three big touches. 6 reps per move per side. Walk back = recovery.</dd>
+        <dt>Cues</dt><dd><ul><li>Slow-fast: the approach can be controlled, the exit is never slow.</li><li>First touch after the move is big (3–4 m) and with the far foot — that's what separates.</li><li>Eyes up at the cone, not the ball.</li></ul></dd></dl>
+        <p class="next">Next: the exit touch is automatic → add the passive defender.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Passive → active defender (needs one person)</h4><span class="meta">12 min · when available</span></div><div class="ladder"><span>Technique</span><span>Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span class="on">Decision</span><span class="on">Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>10×15 m channel, two end gates. Partner starts as a defender who can only shuffle sideways (passive), then jockey and tackle (active).</dd>
+        <dt>Do</dt><dd>Partner chooses their body shape. You read it and choose the move. Score = through a gate with control. 8 reps, swap, repeat 3 rounds.</dd>
+        <dt>Cues</dt><dd><ul><li>Say out loud what you read: "hips open — outside".</li><li>If they back off, don't move — drive until they plant.</li></ul></dd></dl>
+        <div class="solo"><b>No partner?</b>Mannequin gives a fixed target; a randomised cone-number call at 3 m out decides which side you must exit. Log it as "vs mannequin".</div>
+        <p class="next">Next: 5/8 vs an active defender → 1v1 to end product.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>1v1 to end product</h4><span class="meta">15 min · 2×/week</span></div><div class="ladder"><span>Technique</span><span>Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span class="on">Decision</span><span class="on">Opponent</span><span class="on">Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Wide-left position 25 m from goal. Defender (mannequin or person) at 8 m. Goal with target corners. Cutback zone marked at the penalty spot.</dd>
+        <dt>Do</dt><dd>Receive from a wall/self-pass, attack the defender, beat them and finish the action: inside → shoot far post; outside → cutback into the zone or low cross. 12 reps, alternate. Score both the beat and the end product.</dd>
+        <dt>Cues</dt><dd><ul><li>The move and the end product are one action. Don't beat the man then stop to think.</li><li>Inside = eyes on the far post as you cut. Outside = eyes on the cutback zone on the second-last touch.</li></ul></dd></dl>
+        <p class="next">Next: 7/12 with end product → do it in a small-sided game with a real full-back; then count 1v1 attempts in matches (target: 4+ per match).</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Protect &amp; turn</h4><span class="meta">8 min · 2×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span>Speed</span><span class="on">Pressure</span><span>Decision</span><span class="on">Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Mannequin or partner behind you. Ball at your feet, back to them.</dd>
+        <dt>Do</dt><dd>Shield with your body between ball and defender, arm out for feel, ball on the far foot. Roll out with a drag or an L-turn and explode into the space. 10 each side.</dd>
+        <dt>Cues</dt><dd><ul><li>Low centre of gravity, wide base. Ball on the far foot every time.</li><li>Feel the defender with the arm, then turn away from the pressure, not into it.</li></ul></dd></dl>
+        <p class="next">Next: this becomes the "hold" option in Module 08 scenarios.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout green" style="margin-top:20px"><strong>When NOT to dribble</strong><br>Three or more defenders within 10 m and no teammate ahead of the ball · you're in your own third with a defender goal-side · a teammate is in a better position <b>and</b> the pass is on now · you've just beaten one and the second is already set (that's your ping moment). Recognising these is dribbling skill, not a lack of it.</div>
+</section>
+
+<!-- ============================================================ 05 -->
+<section class="mod" id="m05">
+  <div class="modhead">
+    <p class="eyebrow">Module 05</p>
+    <h2>Ball carrying at speed</h2>
+    <p class="lede">The 2/10 next to the 10/10. This module has one job: make the ball travel as fast as you do. It's a technical skill with three parts — touch length, touch surface, and eyes — and it's trained separately before it's combined.</p>
+  </div>
+  <div class="two" style="margin-bottom:22px">
+    <div class="panel">
+      <h4>The touch-length rule</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p><b>Open space (nearest defender 8 m+):</b> big touches, one every 3–4 strides, ball pushed 4–6 m ahead with the laces or the outside of the foot. Run through the ball, don't chase it.</p>
+        <p><b>Approaching a defender (5–8 m):</b> medium touches, every 2 strides, ball 2 m ahead. Eyes come up to read the defender's body.</p>
+        <p><b>Engaging (under 3 m):</b> small touches, every stride, ball within one stride. This is where Module 04 takes over.</p>
+        <p>Your current 2/10 is almost certainly a touch-length problem: either too short (you keep stopping to touch the ball) or too long and uncontrolled (the ball runs away). The drills fix that by making touch length a conscious variable.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Surfaces at speed</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <ul>
+          <li><b>Laces (straight carry):</b> toe down, push with the top of the foot mid-stride. The most efficient carry.</li>
+          <li><b>Outside of the foot (curving carry / change of direction):</b> lets you bend your run without breaking stride. Outside-right carries you inside from the left wing — your natural line.</li>
+          <li><b>Inside of the foot at speed:</b> only for a sharp cut; it costs you a stride.</li>
+          <li><b>Never the sole at full speed</b> unless you're stopping on purpose.</li>
+        </ul>
+        <p>Protecting the ball at speed: carry it on the foot away from the recovering defender, slightly across your body, with your inside arm as a barrier.</p>
+      </div>
+    </div>
+  </div>
+  <div class="drills">
+    <div class="drill">
+      <header><div class="top"><h4>Touch-length lanes</h4><span class="meta">10 min · 3×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>30 m straight lane. Cones every 5 m for the first set, every 3 m for the second, every 1.5 m for the third.</dd>
+        <dt>Do</dt><dd>Carry the full lane taking one touch per cone, so the touch length is dictated. 4 runs per spacing, laces then outside-right then outside-left. Time each run.</dd>
+        <dt>Cues</dt><dd><ul><li>5 m spacing should feel like sprinting with the ball, not dribbling.</li><li>Push the ball, don't tap it: the contact is mid-stride and forward.</li><li>Look at the end cone, glance down only at contact.</li></ul></dd></dl>
+        <div class="solo"><b>Test</b>Time 30 m without the ball, then with (5 m touches). The gap is your "carry gap". Baseline it now; target under 1.2 s, then under 0.8 s.</div>
+        <p class="next">Next: carry gap under 1.2 s → mixed lanes.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Mixed lanes — big to small to big</h4><span class="meta">10 min · 3×/week</span></div><div class="ladder"><span>Technique</span><span class="on">Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Lane: 10 m at 5 m spacing → mannequin → 5 m at 1.5 m spacing → 10 m at 5 m spacing.</dd>
+        <dt>Do</dt><dd>Big touches into the mannequin, small touches and a move to pass it, big touches out. This is the exact rhythm of a counter-attack down the left. 8 reps, alternate exit sides.</dd>
+        <dt>Cues</dt><dd><ul><li>The gear change from big to small is the skill: last big touch should land you 3 m from the defender, in control.</li><li>Exit touch is the biggest of the run.</li></ul></dd></dl>
+        <p class="next">Next: 8/8 clean → add end product (shot or cross at the end of the lane).</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Carry-and-decide</h4><span class="meta">12 min · 2×/week</span></div><div class="ladder"><span>Technique</span><span>Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span class="on">Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Start wide-left 40 m out. Goal. Three finishing options marked: (1) far-post shot from the cut-in, (2) cutback zone, (3) switch target on the right at 30 m.</dd>
+        <dt>Do</dt><dd>Carry at full speed for 20 m. At a cone at 20 m you pick up a number card you turned face down before the rep (or a phone displaying a random 1–3) and execute that option without breaking stride.</dd>
+        <dt>Cues</dt><dd><ul><li>Head up the whole carry; the number should be read in one glance.</li><li>The last touch before the action is shorter and sets the body: open hips for the switch, closed for the shot.</li></ul></dd></dl>
+        <div class="solo"><b>Fatigue version</b>Add a 20 m sprint before each rep. Carrying well at minute 80 is a different skill from minute 10.</div>
+        <p class="next">Next: quality holds under fatigue → count "carries of 15 m+" in matches (target 5+).</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Chased carry (needs one person)</h4><span class="meta">8 min · when available</span></div><div class="ladder"><span>Technique</span><span>Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span>Decision</span><span class="on">Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>30 m lane, partner starts 3 m behind you with no ball.</dd>
+        <dt>Do</dt><dd>On "go", carry to the end line while they try to catch and tackle. Protect the ball on the far side. 6 reps, swap.</dd>
+        <dt>Cues</dt><dd><ul><li>Feel where they are without looking back — the arm tells you.</li><li>If they're gaining, don't slow down to protect: one bigger touch and re-accelerate.</li></ul></dd></dl>
+        <p class="next">Next: you reach the line 5/6 with the ball → this is your transition weapon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 06 -->
+<section class="mod" id="m06">
+  <div class="modhead">
+    <p class="eyebrow">Module 06</p>
+    <h2>Shooting &amp; finishing</h2>
+    <p class="lede">Two problems, two solutions. The technique problem gets reps with clear cues. The decision problem — passing when you should shoot — gets a rule, a zone map, and scenarios that make you choose before you know the answer.</p>
+  </div>
+
+  <div class="two" style="margin-bottom:22px">
+    <div class="panel">
+      <h4>Striking clean — the cues that matter</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p><b>Laces (power / driven):</b> plant foot beside the ball, a hand's width away, toe at the target. Toe down, ankle locked like a hammer. Strike through the centre or slightly above centre to keep it down. Head still and over the ball. Land on the kicking foot — that means you struck through it.</p>
+        <p><b>Inside of the foot (placement / across the keeper):</b> open the hips, plant foot slightly behind and beside the ball, strike the middle with the inside of the boot, follow through towards the far post. This is the finish for 70% of your chances as a winger — cutbacks, back post, the cut-in curler.</p>
+        <p><b>The cut-in curler (inside of the right foot, wrapping):</b> body opens to the far post, strike across the ball from outside to inside, follow through around it. Aim for the far post at ground level and let the curl bring it in. Inverted-winger signature.</p>
+        <p><b>Near-post drive (left foot, or outside-right):</b> from the byline side. Hard and low across the keeper's near side. Placement matters less than speed and height (under the crossbar, above the ground).</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Your finishing zones</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>Where a left winger actually scores from. Train these, not random shots from 25 m.</p>
+        <ul>
+          <li><b>Zone A — the cut-in lane:</b> left of the D, 16–20 m out, after cutting inside onto the right foot. Finish: far-post curler or a driven low shot near post if the keeper cheats.</li>
+          <li><b>Zone B — the second six-yard box (back post):</b> 6–10 m out, arriving on a cross or cutback from the right. Finish: first-time inside foot, side-foot volley, or a controlled second touch and finish.</li>
+          <li><b>Zone C — the cutback receiver:</b> penalty spot / edge of the six-yard box, ball rolling across you from the byline. Finish: first-time, inside foot, across the keeper, low.</li>
+          <li><b>Zone D — in behind, 1v1 with the keeper:</b> from your run in behind. Finish: early, low, across the keeper's far side, before they set. Or a touch round them if they come out fast.</li>
+          <li><b>Zone E — the byline angle:</b> tight angle after going outside. Finish: near-post drive (left foot) or, usually better, the cutback. Know the difference.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="chalkboard" style="margin-bottom:22px">
+    <p class="eyebrow">The shoot rule</p>
+    <h3 style="margin-top:6px">In the zone, I shoot. A pass from the zone needs a reason.</h3>
+    <div class="two" style="margin-top:14px;font-size:.95rem">
+      <div>
+        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;opacity:.7">Shoot when</p>
+        <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+          <li>Inside the box with sight of goal — <em>any</em> sight.</li>
+          <li>Zone A and the defender is more than a stride away as you cut.</li>
+          <li>1v1 with the keeper — early, before they set.</li>
+          <li>The ball drops to you with no defender between you and the goal inside 20 m.</li>
+          <li>You've hesitated once already this match. The next one goes.</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;opacity:.7">The only valid reasons to pass from the zone</p>
+        <ul style="margin:0;padding-left:1.1em;display:grid;gap:4px">
+          <li>A teammate has an <em>open goal</em> or a tap-in and you'd be shooting through bodies.</li>
+          <li>A defender is blocking the line and the pass unblocks it (a square ball round the block).</li>
+          <li>The keeper has closed the angle to nothing <em>and</em> a teammate is free centrally.</li>
+        </ul>
+        <p style="margin-top:8px;opacity:.85">"Someone might be in a better position" is not on that list. "I might miss" is not on that list.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="drills">
+    <div class="drill">
+      <header><div class="top"><h4>Technique block — 40 strikes</h4><span class="meta">12 min · 3×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span>Speed</span><span>Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Goal with corners marked (cones or jumpers 1 m inside each post). Balls at 14 m.</dd>
+        <dt>Do</dt><dd>10 laces driven R (bottom corners), 10 inside-foot placed R (far corner), 10 inside-foot L, 10 cut-in curlers R from Zone A after one touch inside. Score: corner = 2, on target = 1, off = 0. Log the total /80.</dd>
+        <dt>Cues</dt><dd><ul><li>Pick the corner <i>before</i> the last touch, then look at the ball.</li><li>Same run-up every time; consistency of approach = consistency of strike.</li><li>Miss low, never high: a low miss at least went where a keeper can spill it.</li></ul></dd></dl>
+        <p class="next">Next: 55+/80 three sessions running → move most reps to the zone finishing circuit.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Zone finishing circuit</h4><span class="meta">15 min · 3×/week</span></div><div class="ladder"><span>Technique</span><span class="on">Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Goal. Wall or rebounder to the right of the box (angled towards Zone B/C). Balls at Zone A start, Zone D start (30 m, wide left), and by the rebounder.</dd>
+        <dt>Do</dt><dd>Rotate 5 reps each: (A) carry 5 m, cut inside, curler. (B) pass hard into the rebounder from the right side of the box, run across to the back post and finish the return first-time. (C) roll the ball across from the byline yourself, sprint onto it, first-time across the keeper. (D) push the ball in behind from 30 m, sprint, finish early and low. (E) go down the line, tight angle: near-post drive L. 25 reps, score goals.</dd>
+        <dt>Cues</dt><dd><ul><li>Every finish is preceded by the movement that creates it in a match. Never a standing start.</li><li>First-time: get the body around the ball early, small backswing, side foot, aim across.</li></ul></dd></dl>
+        <div class="solo"><b>Pressure</b>Add a count: the ball must be struck within "one-two" of arriving. Add fatigue: 15 m sprint before each rep. Add consequence: under 12/25 = restart the round.</div>
+        <p class="next">Next: 15+/25 under the count → the shoot/pass/dribble circuit.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Shoot / pass / dribble decision circuit</h4><span class="meta">12 min · 2×/week</span></div><div class="ladder"><span>Technique</span><span>Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span class="on">Decision</span><span class="on">Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Zone A start. Mannequin as the covering centre-back. A small target goal (two cones) at the penalty spot representing a free teammate. Three coloured cones behind you.</dd>
+        <dt>Do</dt><dd>Before each rep, shuffle three cards face down: SHOOT (mannequin 2+ m off your line), PASS (mannequin on your line, "teammate" free), DRIBBLE (mannequin closing at you). Place the mannequin accordingly, look only when you start the carry, execute the right action. If you shoot when the card says pass etc., the rep scores zero even if it goes in.</dd>
+        <dt>Cues</dt><dd><ul><li>Decide on the second-last touch. Late decision, fast execution.</li><li>Say the picture out loud: "off my line — shoot".</li></ul></dd></dl>
+        <div class="solo"><b>Why the mannequin matters here</b>You're training your eyes to read <i>distance to the defender</i>, which is the shoot trigger you currently ignore.</div>
+        <p class="next">Next: 9/10 correct decisions → apply in small-sided games; track "shots from the zone" in matches (target: 3+).</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Composure ladder</h4><span class="meta">8 min · end of shooting sessions</span></div><div class="ladder"><span>Technique</span><span>Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span class="on">Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Do</dt><dd>Zone D finish (in behind, 1v1 with the keeper). Rule: you must score 3 in a row to finish the session. Miss = back to zero. Keeper is imaginary: hitting the marked corners counts as a goal, anything central is "saved".</dd>
+        <dt>Cues</dt><dd><ul><li>Same routine every time: look at the corner, look at the ball, exhale, strike.</li><li>The third one is the match. Notice what your body does when the pressure rises, and do the routine anyway.</li></ul></dd></dl>
+        <p class="next">Next: finishing the ladder in under 6 attempts most sessions → composure is becoming a habit, not a hope.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 07 -->
+<section class="mod" id="m07">
+  <div class="modhead">
+    <p class="eyebrow">Module 07</p>
+    <h2>Receiving under pressure &amp; scanning</h2>
+    <p class="lede">These are one skill with two halves. Scanning is how you know what the pressure is; receiving is what you do about it. Trained together from day one, because a scan you don't act on is decoration.</p>
+  </div>
+
+  <div class="two" style="margin-bottom:22px">
+    <div class="panel">
+      <h4>The two looks</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p><b>Look 1 — when the passer looks up.</b> The moment a teammate's head comes up to find you, check over the shoulder nearest the pitch. You want: where is my marker, where is the space.</p>
+        <p><b>Look 2 — as the ball travels.</b> Halfway through the pass, one more check. Has the marker moved? Did the space close? This second look is what separates 4/10 from 8/10 scanners; elite midfielders and wide players scan several times in the seconds before receiving.</p>
+        <p><b>What you're looking for, in order:</b> (1) nearest defender — distance and direction of approach, (2) space I can take my first touch into, (3) the next pass or run option. Three things, in that order, every time.</p>
+        <p><b>Then the picture decides the touch:</b></p>
+        <ul>
+          <li>Marker tight behind → <b>bounce</b> one-touch to the passer or a third man, or set it and spin.</li>
+          <li>Marker 2–3 m behind → <b>half-turn receive on the back foot</b>, first touch away from them, face forward.</li>
+          <li>Marker on your inside → touch <b>outside</b> and go down the line.</li>
+          <li>Marker on your outside / showing you inside → touch <b>inside</b> onto the right and drive at the centre-back or ping.</li>
+          <li>No pressure → <b>big touch forward</b> and carry (Module 05).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Body orientation for a left winger</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>Receive <b>side-on</b>, left shoulder to the touchline, hips open to the pitch, so both your right foot (inside) and the run down the line are available. Receiving square to the passer with your back to goal is the picture that leaves you "stuck" — it's where your 3/10 lives.</p>
+        <p><b>Back foot</b> = the foot furthest from the ball — for you on the left wing, usually the right foot. Receiving on the back foot lets the ball run across your body and your first touch is already forward. That single habit changes most of your receptions.</p>
+        <p><b>Timing the movement:</b> come short at the moment the passer can play it, not before. Two steps towards the ball as it's struck creates the metre you need. Double movements are in Module 09.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="drills">
+    <div class="drill">
+      <header><div class="top"><h4>Number-check receiving</h4><span class="meta">10 min · daily</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span>Pressure</span><span class="on">Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Wall. Behind you, three cones with numbers or colours; move them between sets so you can't memorise.</dd>
+        <dt>Do</dt><dd>Pass into the wall, shoulder-check and call the cone you saw (or the nearest one) before the ball returns, then take your first touch towards that cone on the back foot, half-turned. 3 sets × 12.</dd>
+        <dt>Cues</dt><dd><ul><li>Two checks: one as you pass, one as the ball comes back. Call it on the second.</li><li>Receive side-on. Chest to the pitch.</li></ul></dd></dl>
+        <div class="solo"><b>Pressure</b>Hit the wall harder (less time), reduce the distance to 4 m, or add a rule: touch must be taken within one stride of where the ball arrives.</div>
+        <p class="next">Next: 100% correct calls at full pace → make the touch a decision (below).</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Picture → touch</h4><span class="meta">10 min · 3×/week</span></div><div class="ladder"><span>Technique</span><span class="on">Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span class="on">Decision</span><span class="on">Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Wall. A mannequin (or a bag on a pole) you reposition each rep: tight behind, 3 m behind, on your inside, on your outside, absent.</dd>
+        <dt>Do</dt><dd>You don't look at the mannequin until Look 1. Then execute the matching response from the table: bounce, half-turn, outside touch, inside touch, big carry. 20 reps mixed.</dd>
+        <dt>Cues</dt><dd><ul><li>The scan is short — a flick of the head, not a stare.</li><li>The touch must be away from the mannequin every time. If it isn't, the rep fails.</li></ul></dd></dl>
+        <div class="solo"><b>Partner version</b>A friend behind you chooses their position after you've passed the ball. Real, unpredictable pressure — use it whenever you can get it.</div>
+        <p class="next">Next: 18/20 correct → this is your default in team training rondos and possession games.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Receive on the move — both feet, all angles</h4><span class="meta">8 min · 3×/week</span></div><div class="ladder"><span class="on">Technique</span><span class="on">Movement</span><span class="on">Speed</span><span class="on">Pressure</span><span>Decision</span><span>Opponent</span><span>Game</span><span>Match</span></div></header>
+      <div class="body">
+        <dl><dt>Setup</dt><dd>Wall. Start 8 m away and 5 m to one side.</dd>
+        <dt>Do</dt><dd>Pass on the diagonal into the wall while jogging across; receive the return on the move without breaking stride, back foot, and pass again. Continue across the wall, then back the other way. 4 lengths each direction — the direction change forces the other foot.</dd>
+        <dt>Cues</dt><dd><ul><li>Adjust your feet early: small steps to arrive as the ball does.</li><li>Left foot sets are done first and slower; right foot sets are done faster.</li></ul></dd></dl>
+        <p class="next">Next: no loss of rhythm either direction → add the number-check.</p>
+      </div>
+    </div>
+    <div class="drill">
+      <header><div class="top"><h4>Match scanning homework</h4><span class="meta">Every match · film it</span></div><div class="ladder"><span>Technique</span><span>Movement</span><span>Speed</span><span>Pressure</span><span>Decision</span><span>Opponent</span><span class="on">Game</span><span class="on">Match</span></div></header>
+      <div class="body">
+        <dl><dt>Do</dt><dd>Phone on a fence at halfway. After the match, count for 10 of your receptions: scans in the 3 s before the ball arrived (0, 1, 2+), body shape (side-on / square), first touch (away from pressure / into it). Enter it in Module 13.</dd>
+        <dt>Cues</dt><dd><ul><li>Target by week six: 2+ scans on 80% of receptions.</li><li>You'll find the receptions where you got "stuck" had zero scans. That's the whole point.</li></ul></dd></dl>
+        <p class="next">Next: the numbers move → your decision-making rating moves with them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 08 -->
+<section class="mod" id="m08">
+  <div class="modhead">
+    <p class="eyebrow">Module 08</p>
+    <h2>Football IQ Lab</h2>
+    <p class="lede">Decision-making trained the way it works in a match: you see a picture, you commit, then you find out. Twelve scenarios below — pick before you reveal. Your score is saved on this device. Re-run them weekly until every one is automatic, then send me match clips and I'll build new ones from your own games.</p>
+  </div>
+
+  <div class="flow" style="margin-bottom:22px"><span>Scan</span><i>→</i><span>See</span><i>→</i><span>Anticipate</span><i>→</i><span>Decide</span><i>→</i><span>Execute</span></div>
+
+  <div class="two" style="margin-bottom:22px">
+    <div class="panel">
+      <h4>What each step means for you</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <ul>
+          <li><b>Scan</b> — the two looks (Module 07). Before the ball, not after.</li>
+          <li><b>See</b> — three things, in order: nearest defender, space, next option.</li>
+          <li><b>Anticipate</b> — where will the defender be in one second? Where will my teammate be? Play the next picture, not this one.</li>
+          <li><b>Decide</b> — late but fast. The decision is made on the second-last touch, not while standing still.</li>
+          <li><b>Execute</b> — with commitment. A 70% decision executed at 100% beats a 100% decision executed at 70%. Hesitation is the worst decision.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Watching homework (20 min, twice a week)</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>Pick one elite inverted left winger (right-footed on the left) and watch <b>only them</b> for a 20-minute stretch, ball or no ball. Pause when they receive and ask: where did they scan, what was their body shape, what did they do and why? Then watch a wide player who goes outside more, and compare.</p>
+        <p>Write down three things per session in Module 13's notes. Not "he was good" — "he checked his shoulder twice, received side-on, touched inside when the full-back was outside."</p>
+        <p>Also watch the full-back marking them. Learn what full-backs hate: early runs in behind, being isolated with no cover, the winger arriving at pace instead of receiving to feet.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores" style="margin-bottom:14px"><span>Score <b id="scoreNum">0</b> / <span id="scoreDen">12</span></span><span>First-attempt accuracy <b id="scorePct">–</b></span><button class="btn ghost" id="resetScen" type="button" style="font-size:.85rem;padding:6px 12px">Reset lab</button></div>
+  <div class="stack" id="scenarios"></div>
+</section>
+
+<!-- ============================================================ 09 -->
+<section class="mod" id="m09">
+  <div class="modhead">
+    <p class="eyebrow">Module 09</p>
+    <h2>LW specialist programme</h2>
+    <p class="lede">The movements you already have, organised by when to use them — because a run at the wrong moment is a run wasted. Six team phases, and your default job in each.</p>
+  </div>
+
+  <h3 style="margin-bottom:12px">Where to be — the six phases</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Phase</th><th>Your default position</th><th>Your first thought</th></tr></thead>
+    <tbody>
+      <tr><td>Build-up (our GK/CBs have it)</td><td>Maximum width, on the touchline, level with the ball or slightly ahead. Pin the full-back.</td><td>Stretch them. If the FB follows me wide, the space inside is for our midfielder. If they don't, I'm free to receive.</td></tr>
+      <tr><td>Progression (ball in our midfield)</td><td>Still wide, but now higher: on the FB's shoulder, ready for both.</td><td>Double movement: two steps short to drag the FB, then spin in behind on the passer's look-up. Or the reverse.</td></tr>
+      <tr><td>Final third (ball on my side)</td><td>Wide and high, isolated 1v1 with the FB. Full-back overlapping/underlapping behind me.</td><td>Take them on. Inside to shoot/switch, outside to cut back. If the overlap comes, use it as a decoy at least.</td></tr>
+      <tr><td>Final third (ball on the far side)</td><td>Narrow. Between the far CB and FB, on the back post.</td><td>Arrive, don't wait. Time the run for when the crosser's head comes up. Finish first-time.</td></tr>
+      <tr><td>Transition to attack (we've just won it)</td><td>Already running. Into the space behind their FB before they recover.</td><td>The first three seconds decide a counter. Run first, ask later. If the pass doesn't come, I've still dragged two players.</td></tr>
+      <tr><td>Transition to defence (we've just lost it)</td><td>Within 5 m of the ball: counterpress for 5 seconds. Further: sprint back to a position goal-side of their FB.</td><td>Win it back high (that's a chance) or get back. Never the third option, which is standing still.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="margin:30px 0 12px">Movements and when</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Movement</th><th>Trigger</th><th>What it does</th><th>End product</th></tr></thead>
+    <tbody>
+      <tr><td>Run in behind</td><td>FB is flat or has stepped up; passer has time and head up; space behind.</td><td>Your best weapon. Even unrewarded it pushes their line back.</td><td>Zone D finish or cutback.</td></tr>
+      <tr><td>Check short</td><td>FB is dropping off / guarding the space behind; passer under pressure needs an outlet.</td><td>Gives the team a pass and pulls the FB out of position for the next run.</td><td>Receive half-turned, combine, or switch.</td></tr>
+      <tr><td>Double movement (short-then-long / long-then-short)</td><td>FB is tracking you tightly. Always sell the first one properly.</td><td>Creates the metre you need. The second movement is timed to the passer's look-up.</td><td>Either of the above.</td></tr>
+      <tr><td>Stay wide / pin</td><td>Build-up; we need the FB stretched.</td><td>Opens the half-space for a teammate. Discipline counts as a movement.</td><td>Receive isolated 1v1.</td></tr>
+      <tr><td>Come inside / underlap</td><td>Our LB overlaps outside you, or the FB is pinned wide by a teammate.</td><td>Puts you in Zone A with the ball or arriving.</td><td>Cut-in shot, or slide a runner in.</td></tr>
+      <tr><td>Back-post run</td><td>Ball on the far side, crosser's head comes up.</td><td>Your instinct already. Add: start from outside the far CB's eyeline, arrive late, not early.</td><td>Zone B first-time finish.</td></tr>
+      <tr><td>Overlap use</td><td>LB comes outside you while you have the ball.</td><td>Either release them early (they cross) or use them as a decoy and cut inside as the FB hesitates.</td><td>Cutback from LB, or your Zone A shot.</td></tr>
+      <tr><td>Counterpress</td><td>Ball lost within 5 m of you, in their half.</td><td>Five seconds of maximum aggression. Win = chance. Miss = recover.</td><td>Win high → shoot or cutback within 4 s.</td></tr>
+      <tr><td>Pressing trigger</td><td>Their CB receives with a bad touch, a back-pass, or a pass to a FB facing their own goal.</td><td>Curve the run to cut the line back to the CB. Force them down the line where the team can trap.</td><td>Turnover in their third.</td></tr>
+      <tr><td>Defensive recovery</td><td>Their FB/winger overloads our LB.</td><td>Track the runner past you to the edge of our box. Show them outside, no diving in.</td><td>Win it, or at least delay until the shape is set.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="two" style="margin-top:22px">
+    <div class="panel">
+      <h4>Isolating the full-back</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>The best thing that can happen to you in a match is a 1v1 with the full-back, 30 m from goal, with no cover next to them. You can engineer it:</p>
+        <ul>
+          <li>Hold width in build-up so the FB can't get help from the winger ahead of them.</li>
+          <li>Receive <b>on the move</b>, not standing — a standing winger lets the cover arrive.</li>
+          <li>Attack immediately after receiving. Every second you wait, their midfielder gets 2 m closer.</li>
+          <li>If the cover is already there, that's the switch or the cutback pass — the isolation comes next time.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>LWB / LB — your secondary jobs</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>Playing deeper is not a demotion — it's more touches, more receiving under pressure and more running in behind from deep, which is exactly your programme. Adjust two things:</p>
+        <ul>
+          <li><b>Defensive positioning:</b> goal-side of the winger, body open so you see the ball and them. Show them outside. Don't dive in — delay until the cover arrives. Your acceleration makes recovery runs a strength here.</li>
+          <li><b>Attacking from deep:</b> your run is later and longer. Underlap when the winger holds width; overlap when they come inside. The end product is the low cross or cutback more than the shot.</li>
+        </ul>
+        <p>Module 10's stamina work matters most in these roles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 10 -->
+<section class="mod" id="m10">
+  <div class="modhead">
+    <p class="eyebrow">Module 10</p>
+    <h2>Physical development</h2>
+    <p class="lede">Protect the explosiveness, build the engine, and get strong enough to stay on your feet. Age-appropriate: bodyweight and technique first, no maximal lifting without a qualified coach, and any persistent pain gets seen by someone qualified before training continues.</p>
+  </div>
+  <div class="callout amber" style="margin-bottom:20px"><strong>Growth note</strong><br>At 15 you may be in or just past your fastest growth period. Heel, knee or hip pain during growth is common and is a reason to reduce load, not push through. Speed and strength both dip temporarily when limbs grow — if a test goes backwards for six weeks, that's biology, not lost work.</div>
+  <div class="three">
+    <div class="panel">
+      <h4>Stamina (4 → 7)</h4>
+      <div class="prose" style="margin-top:8px;font-size:.93rem">
+        <p>Two runs a week. Football stamina is repeated high-intensity efforts with short recoveries, not steady jogging.</p>
+        <ul>
+          <li><b>Run 1 — intervals:</b> 4 × 4 min hard (can speak 2–3 words) / 3 min easy jog. Progress to 5 × 4.</li>
+          <li><b>Run 2 — repeated sprints:</b> 2 sets of 8 × 30 m sprint, 20 s walk back, 4 min between sets. Add a ball to half of them from week four.</li>
+          <li><b>Every session:</b> the last 10 minutes of ball work is done at match tempo without rest — that's stamina with a ball.</li>
+        </ul>
+        <p class="small">Test: 5-minute run distance, or the beep test if school has it. Re-test every six weeks.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Strength &amp; robustness (4 → 6)</h4>
+      <div class="prose" style="margin-top:8px;font-size:.93rem">
+        <p>Two 25-minute sessions a week, bodyweight and band. Quality over volume.</p>
+        <ul>
+          <li><b>Lower:</b> split squats 3×8/leg · single-leg glute bridges 3×10/leg · Nordic hamstring lowers 3×4 (sprinters' hamstrings need this) · Copenhagen adductor holds 3×20 s · calf raises 3×15.</li>
+          <li><b>Trunk:</b> dead bugs 3×10 · side planks 3×30 s · Pallof press with band 3×10/side.</li>
+          <li><b>Upper (for shielding):</b> press-ups 3×max · inverted rows or band rows 3×12.</li>
+        </ul>
+        <p class="small">Month three onwards: add a light loaded goblet squat and Romanian deadlift <b>only</b> if someone qualified checks your technique first.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Speed, agility &amp; balance</h4>
+      <div class="prose" style="margin-top:8px;font-size:.93rem">
+        <p>You don't need more acceleration. You need to keep it, add top speed, and be able to use it on one leg while turning.</p>
+        <ul>
+          <li><b>Top speed:</b> once a week, 4 × 40 m flying sprints (20 m build, 20 m fly), full recovery. Tall posture, relaxed face and hands.</li>
+          <li><b>Agility:</b> 5-10-5 shuttles and reactive cuts (a partner points, you cut) — 8 reps, once a week, fresh.</li>
+          <li><b>Balance &amp; coordination (your two unknowns):</b> single-leg hops and sticks 3×5/leg, skipping 3 × 1 min, ladder or line hops for 3 min in warm-ups. Test single-leg balance eyes closed: under 10 s = a priority.</li>
+        </ul>
+        <p class="small">Warm-up every session: 8 minutes — jog, dynamic stretches (leg swings, walking lunges, hip openers), 3 accelerating strides.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 11 -->
+<section class="mod" id="m11">
+  <div class="modhead">
+    <p class="eyebrow">Module 11</p>
+    <h2>Mind: confidence, composure, consistency</h2>
+    <p class="lede">Your confidence is 2/10 because it's being built on outcomes, and outcomes in football are noisy. Rebuild it on process: things you fully control, that you can hit on your worst day. Every match you hit them, the evidence grows. Confidence follows evidence.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h4>The three non-negotiables</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>Whatever the score, whatever your form, whatever the coach said. These are yours to hit in every match. They are also, not by accident, your identity.</p>
+        <div class="stack" style="margin-top:6px">
+          <div class="rule"><span class="n">1</span><div><strong>Press the first trigger I see in every ten-minute block.</strong><span>Controllable, aggressive, gets you into the game physically before the ball arrives.</span></div></div>
+          <div class="rule"><span class="n">2</span><div><strong>Make four runs in behind before half-time.</strong><span>Even if none are found. You become a problem the full-back thinks about.</span></div></div>
+          <div class="rule"><span class="n">3</span><div><strong>Apply the shoot rule the first time I'm in the zone.</strong><span>Miss the target if you must. The rule was kept. That's the win.</span></div></div>
+        </div>
+        <p class="small" style="margin-top:8px">After the match you rate only these three (yes/no). A 3/3 on a day the team lost 4–0 and you played badly is a successful match for your development. That's not a trick — it's how academies actually assess young players.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>The five-second reset</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>After any mistake — lost ball, missed chance, bad pass:</p>
+        <ol>
+          <li><b>Breathe out</b> hard, once. Long exhale.</li>
+          <li><b>Cue word.</b> Pick one now and never change it. Examples: "Next." "Go." "Press." Say it in your head or under your breath.</li>
+          <li><b>Next action within five seconds:</b> press the ball, make a run, show for a pass, sprint back. A physical action, not a thought.</li>
+        </ol>
+        <p>Practise it in training: every time you lose the ball in a drill, do the reset before touching a ball again. It has to be automatic before it will survive a match.</p>
+        <p><b>Why it works:</b> the "scared / hesitating / going quiet" pattern you describe is your attention moving from the pitch to yourself. The reset drags it back onto the pitch. You can't be anxious and sprinting to press at the same time — the body doesn't allow it.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Composure in front of goal</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <ul>
+          <li><b>Routine beats feeling.</b> Corner → ball → exhale → strike. The same in the composure ladder (Module 06) as in a cup final. The routine is what you fall back on when the feeling isn't there.</li>
+          <li><b>Decide early, execute late.</b> Most panicked finishes are decided at the last moment. Pick the corner as you enter the zone.</li>
+          <li><b>Low and hard is never wrong.</b> If the head goes blank: low, hard, across the keeper. Give the goalkeeper something to save. Keepers spill; the back post arrives.</li>
+          <li><b>Misses are rent.</b> Every finisher pays it. Count shots, not goals, for the first three months. Goals follow shots. They can't follow passes.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Consistency &amp; discipline</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <ul>
+          <li><b>The minimum session:</b> on a day you can't face it — 15 minutes of wall work and 20 strikes. Never zero. Consistency is built on the bad days.</li>
+          <li><b>Pre-match routine (same every time):</b> night before — kit ready, read the identity statement, name your three non-negotiables. Matchday — same food, same warm-up additions (10 strikes, 6 accelerations), 60 seconds alone: exhale, cue word, first action planned ("first ball: run in behind").</li>
+          <li><b>The 24-hour rule:</b> no judgement of a match until the next day. Then the review (Module 13), then done. No replaying it for a week.</li>
+          <li><b>Selection setbacks:</b> write down what the coach said and what you think they saw. Turn it into one project in this system. Then close the notebook. Information, not identity.</li>
+          <li><b>Sleep:</b> 8.5–9.5 hours at your age. It is the single biggest performance and consistency lever you have and it's free.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 12 -->
+<section class="mod" id="m12">
+  <div class="modhead">
+    <p class="eyebrow">Module 12</p>
+    <h2>The training week</h2>
+    <p class="lede">Built for a school week with a Saturday match and one team training night. Swap days freely; keep the pattern of two heavy ball days, one lighter, and the day before a match easy and sharp.</p>
+  </div>
+  <div class="week" style="margin-bottom:20px">
+    <div class="day"><b>Mon</b><span class="t">55 min · heavy</span><span>Warm-up + box mastery 10'</span><span>Wall receiving &amp; passing 10'</span><span><b>Shooting:</b> technique block + zone circuit 25'</span><span>Composure ladder</span><span>Strength A 20' (evening)</span></div>
+    <div class="day"><b>Tue</b><span class="t">Team training</span><span>Apply: two looks before every receive; take players on in every 1v1 moment; shoot rule in games</span><span>No team? → Wed session here, Wed becomes run 1</span></div>
+    <div class="day"><b>Wed</b><span class="t">55 min · heavy</span><span>Warm-up + speed strides 10'</span><span><b>Carrying:</b> touch-length + mixed lanes 15'</span><span><b>Dribbling:</b> move gates + 1v1 to end product 25'</span><span>Run 2: repeated sprints (can be inside session)</span></div>
+    <div class="day"><b>Thu</b><span class="t">45 min · medium</span><span>Warm-up 8'</span><span><b>Receive &amp; scan:</b> number-check + picture→touch 20'</span><span>Crossing circuit 12'</span><span>Strength B 20' (evening)</span></div>
+    <div class="day"><b>Fri</b><span class="t">30 min · sharp</span><span>Box mastery 8'</span><span>20 strikes, corners only</span><span>IQ Lab: 4 scenarios + 20 min watching</span><span>Pre-match routine tonight</span></div>
+    <div class="day match"><b>Sat</b><span class="t">Match</span><span>Three non-negotiables</span><span>Phone on the fence</span><span>Reset after every mistake</span></div>
+    <div class="day rest"><b>Sun</b><span class="t">Recovery</span><span>Run 1: intervals (or easy 30' if legs are heavy)</span><span>Match review 20' (Module 13)</span><span>Mobility 15'</span></div>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h4>Anatomy of a 55-minute session</h4>
+      <div class="session" style="margin-top:8px">
+        <span class="t">0–8</span><span>Warm-up: jog, dynamic stretches, 3 strides. Read the identity statement.</span>
+        <span class="t">8–18</span><span><b>Rungs 1–2.</b> Slow, clean technique for today's theme. Weak foot first.</span>
+        <span class="t">18–33</span><span><b>Rungs 3–4.</b> Same skill at speed, then under a constraint (clock, space, fatigue).</span>
+        <span class="t">33–50</span><span><b>Rungs 5–6.</b> Decision version with a random cue; opponent version if there's a mannequin or a person. Always ends with an end product.</span>
+        <span class="t">50–55</span><span>Composure ladder or 10 finishes. Log the numbers. Reset word on every miss.</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Off-season / holidays (no matches)</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <p>This is when the biggest technical jumps happen. Move to five ball sessions a week (two of them 75 min), keep both runs and both strength sessions, and find people: pick-up games, futsal, a mate for 1v1s. Two weeks of daily 1v1s with a real opponent is worth a term of mannequins.</p>
+        <p>Holiday priority order: carrying at speed → dribbling → shooting → receiving. Those are the rungs you can climb fastest without a team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 13 -->
+<section class="mod" id="m13">
+  <div class="modhead">
+    <p class="eyebrow">Module 13</p>
+    <h2>Match review &amp; tracking</h2>
+    <p class="lede">A performance analyst's job is to count the actions that predict your identity, not the goals. Ten numbers per match, ten minutes on the Sunday. The trend over six matches is the truth; a single match is noise.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h4>Match KPIs (count from the film or from memory)</h4>
+      <div style="margin-top:8px">
+        <div class="kpi"><span>Shots from the zone</span><span class="target">3+ per match</span></div>
+        <div class="kpi"><span>1v1 attempts (regardless of outcome)</span><span class="target">4+</span></div>
+        <div class="kpi"><span>1v1 successes</span><span class="target">40%+ of attempts</span></div>
+        <div class="kpi"><span>Runs in behind</span><span class="target">8+ (4 per half)</span></div>
+        <div class="kpi"><span>Carries of 15 m or more</span><span class="target">5+</span></div>
+        <div class="kpi"><span>Receptions with 2+ scans (from 10 sampled)</span><span class="target">8 / 10</span></div>
+        <div class="kpi"><span>Chances created (pass or cross leading to a shot)</span><span class="target">2+</span></div>
+        <div class="kpi"><span>Pressing actions leading to a turnover or a rushed clearance</span><span class="target">3+</span></div>
+        <div class="kpi"><span>Hesitation count (moments you knew what to do and didn't)</span><span class="target">↓ each month</span></div>
+        <div class="kpi"><span>Resets completed after mistakes (yes/no honesty)</span><span class="target">100%</span></div>
+      </div>
+      <p class="small" style="margin-top:10px">Targets are for a full match. Halve them for 45 minutes. Note minutes played every time.</p>
+    </div>
+    <div class="panel">
+      <h4>Sunday review — 20 minutes, then close it</h4>
+      <div class="prose" style="margin-top:8px;font-size:.95rem">
+        <ol>
+          <li><b>Non-negotiables:</b> 1, 2, 3 — yes or no.</li>
+          <li><b>KPIs:</b> fill the ten numbers.</li>
+          <li><b>Two clips:</b> one moment you'd keep, one you'd change. For the "change" clip run SCAN → SEE → ANTICIPATE → DECIDE → EXECUTE and find which step broke. It's almost always Scan or Decide, and the fix is in Module 07 or 08.</li>
+          <li><b>One sentence for next week:</b> the single thing next Saturday is about. Not three things. One.</li>
+          <li><b>Close it.</b> The 24-hour rule ends here.</li>
+        </ol>
+      </div>
+      <div style="margin-top:14px;display:grid;gap:10px">
+        <label class="f" for="rvNotes">Review notes (saved on this device)</label>
+        <textarea id="rvNotes" placeholder="Date · minutes · non-negotiables · KPIs · keep clip · change clip · next week's one sentence"></textarea>
+        <label class="f" for="rvWatch">Watching homework notes</label>
+        <textarea id="rvWatch" placeholder="Player watched · three specific things they did · one thing to copy this week"></textarea>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 14 -->
+<section class="mod" id="m14">
+  <div class="modhead">
+    <p class="eyebrow">Module 14</p>
+    <h2>Testing &amp; 12-month roadmap</h2>
+    <p class="lede">Every six weeks: test, re-rate in Module 01, and move the emphasis. Four phases over a year, each with a question it answers. You don't move phase on a date — you move when the tests say so.</p>
+  </div>
+  <h3 style="margin-bottom:12px">Six-week test battery (45 minutes, fresh, same conditions each time)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Test</th><th>Protocol</th><th>Baseline</th><th>Month 3 target</th><th>Month 12 target</th></tr></thead>
+    <tbody>
+      <tr><td>Carry gap</td><td>30 m sprint without ball vs with ball (5 m touches), best of 2 each</td><td>record</td><td>&lt; 1.2 s</td><td>&lt; 0.7 s</td></tr>
+      <tr><td>Cut-in test</td><td>10 curlers from Zone A after a moving cut-in; corners = 2, on target = 1</td><td>record /20</td><td>12</td><td>16</td></tr>
+      <tr><td>Zone finishing</td><td>The 25-rep zone circuit under the count</td><td>record /25</td><td>15</td><td>19</td></tr>
+      <tr><td>Wall pass, 30 s</td><td>One-touch completions, right then left (6 m)</td><td>record R / L</td><td>L within 90% of R</td><td>L = R</td></tr>
+      <tr><td>Crossing circuit</td><td>15 deliveries, three types, in zone</td><td>record /15</td><td>8</td><td>11</td></tr>
+      <tr><td>1v1 gates</td><td>8 reps vs an active defender (or 8 vs mannequin with random call, logged separately)</td><td>record /8</td><td>5</td><td>6–7</td></tr>
+      <tr><td>Stamina</td><td>5-min run distance or beep test level</td><td>record</td><td>+8%</td><td>+15%</td></tr>
+      <tr><td>Flying 20 m</td><td>Best of 3, phone timer or a friend</td><td>record</td><td>hold</td><td>−3%</td></tr>
+      <tr><td>Single-leg balance</td><td>Eyes closed, each leg, seconds</td><td>record</td><td>15 s</td><td>25 s</td></tr>
+      <tr><td>IQ Lab</td><td>All scenarios, first-attempt accuracy</td><td>record %</td><td>80%</td><td>New set, 80%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="margin:30px 0 12px">The roadmap</h3>
+  <div class="stack" style="gap:0">
+    <div class="phase">
+      <div class="when">Phase 1<small>Weeks 1–6 · Sep–Oct 2026</small></div>
+      <div><b>Foundations &amp; habits.</b> Question: can I strike clean and receive facing forward?
+        <ul><li>Daily: wall receiving, wall passing, box mastery. Weak foot first.</li><li>3×/week: shooting technique block. Carry lanes. Move gates.</li><li>Habits installed: two looks, back-foot receive, shoot rule, five-second reset, three non-negotiables.</li><li>Film two matches. Baseline every test.</li></ul></div>
+    </div>
+    <div class="phase">
+      <div class="when">Phase 2<small>Weeks 7–12 · Nov–Dec 2026</small></div>
+      <div><b>Speed &amp; pressure.</b> Question: does it hold at match tempo when I'm tired?
+        <ul><li>Everything from Phase 1 moves to rungs 3–4: clocks, shrinking space, fatigue.</li><li>Zone finishing circuit replaces most static striking. Mixed carry lanes. Passive defender whenever a person is available.</li><li>Crossing circuit begins in earnest. Stamina run 1 progresses to 5 × 4.</li><li>Christmas break: five sessions a week, find 1v1 opponents.</li></ul></div>
+    </div>
+    <div class="phase">
+      <div class="when">Phase 3<small>Weeks 13–24 · Jan–Mar 2027</small></div>
+      <div><b>Decision &amp; opponent.</b> Question: do I choose right when I don't know what's coming?
+        <ul><li>Every session ends in a decision drill: carry-and-decide, shoot/pass/dribble circuit, picture → touch with a partner.</li><li>1v1 to end product with a real defender at least once a week. Outside-inside and the chop join the move set.</li><li>IQ Lab: new scenarios built from your own match clips. Hesitation count is the KPI of the phase.</li><li>Mid-phase re-rate: decision-making and receiving under pressure should be 5+.</li></ul></div>
+    </div>
+    <div class="phase">
+      <div class="when">Phase 4<small>Weeks 25–52 · Apr–Sep 2027</small></div>
+      <div><b>Match transfer &amp; identity.</b> Question: does an opponent have to plan for me?
+        <ul><li>KPIs drive the training: whichever match number is furthest from target gets the week's heavy session.</li><li>Summer: the biggest block of the year. Play as much real football as you can find — futsal, pick-up, trials, holiday camps. Take the system with you.</li><li>Second-year targets set in September 2027 from a full year of data, with the ratings re-baselined.</li><li>Look outward: grassroots club at the highest level you can get into, development centres, open trials. Selection setbacks get written down and turned into projects. Information, not identity.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="chalkboard" style="margin-top:28px">
+    <p class="eyebrow">Last word</p>
+    <p style="font-size:1.05rem;max-width:66ch;margin-top:6px">Nothing in this system asks you to prove anyone wrong. It asks you to be measurably better at ten things in six weeks, and again six weeks after that. Players who do that for two years become players people have to plan for. Whether that ends in professional football isn't something a document can promise — but the player it builds will know exactly how good he is, and why.</p>
+  </div>
+</section>
+
+</main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  var store = {
+    get:function(k,d){try{var v=localStorage.getItem('roqz.'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+    set:function(k,v){try{localStorage.setItem('roqz.'+k,JSON.stringify(v))}catch(e){}},
+    del:function(k){try{localStorage.removeItem('roqz.'+k)}catch(e){}}
+  };
+  var toastEl=document.getElementById('toast'),toastT;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('show')},1600)}
+
+  /* ---------- ratings ---------- */
+  var groups=[
+    ['Technical',[['First touch',6],['Ball mastery / close control',5],['Dribbling',6],['1v1 attacking',5],['Passing',6],['Crossing',3],['Finishing',5],['Shooting',5],['Weak foot',4],['Receiving under pressure',3],['Ball carrying at speed',2]]],
+    ['Tactical / football IQ',[['Scanning',4],['Decision-making',3],['Pass / dribble / shoot choice',5],['Off-ball movement',7],['Positioning',4]]],
+    ['Physical',[['Acceleration',10],['Top speed',6.5],['Agility',7],['Stamina',4],['Strength',4]]],
+    ['Psychological',[['Confidence',2],['Composure in front of goal',3],['Concentration',10],['Handling mistakes',3],['Confidence after losing the ball',3],['Competitiveness',10],['Discipline',5],['Consistency',3]]]
+  ];
+  var cur=store.get('ratings',{});
+  var host=document.getElementById('ratings');
+  groups.forEach(function(g){
+    var div=document.createElement('div');div.className='rgroup';
+    var h=document.createElement('h4');h.textContent=g[0];div.appendChild(h);
+    g[1].forEach(function(r){
+      var id='r_'+r[0].toLowerCase().replace(/[^a-z0-9]+/g,'_');
+      var row=document.createElement('div');row.className='rrow';
+      row.innerHTML='<label for="'+id+'">'+r[0]+'</label><div class="bar"><i style="width:'+(r[1]*10)+'%"></i><b></b></div><span class="v num">'+(r[1]%1?r[1].toFixed(1):r[1])+'</span><input id="'+id+'" type="number" min="1" max="10" step="0.5" inputmode="decimal" aria-label="Current rating for '+r[0]+'" placeholder="now">';
+      var inp=row.querySelector('input'),b=row.querySelector('b');
+      function paint(){var v=parseFloat(inp.value);if(v>=1&&v<=10){b.style.width=(v*10)+'%';cur[r[0]]=v}else{b.style.width='0';delete cur[r[0]]}}
+      if(cur[r[0]]!=null){inp.value=cur[r[0]]}
+      paint();
+      inp.addEventListener('input',function(){paint();store.set('ratings',cur)});
+      div.appendChild(row);
+    });
+    host.appendChild(div);
+  });
+  document.getElementById('resetRatings').addEventListener('click',function(){
+    cur={};store.del('ratings');host.querySelectorAll('input').forEach(function(i){i.value='';i.dispatchEvent(new Event('input'))});toast('Updates cleared');
+  });
+
+  /* ---------- scenarios ---------- */
+  var S=[
+    {t:'Receiving wide, ball on my side',q:'You\'re wide left, 35 m from goal. Our CM has the ball and looks up. Their full-back is 3 m behind you, slightly inside. Their winger has not tracked back. The ball is played to your feet.',o:['Receive facing the passer, hold it, wait for the LB overlap','Half-turn on the back foot, first touch outside, drive down the line','Bounce it first-time back to the CM and spin in behind','Let it run across you and cut inside onto the right immediately'],a:1,
+     saw:'The FB is inside you, 3 m away. The outside is open and nobody is covering behind them because their winger is high.',miss:'People pick D because cutting inside is the "inverted winger" move. But the defender is inside — you\'d be turning into them with your back to the space.',why:'Back-foot receive + outside touch puts the ball 2 m away from the FB\'s reach and turns your 10/10 acceleration into a race they start from behind. The overlap can still come later as the option for a cutback.',def:'The FB is positioned to stop the cut inside. Their body is open to the pitch, so their first step outside is slow.',team:'LB is behind you and will overlap; striker is on the near post ready for the low cross.',next:'Carry at speed (big touches), then read the recovering CB: cutback if he comes, low cross if not.',p:'Receive away from the pressure, not into it. The defender\'s position picks your first touch.'},
+    {t:'The cut-in',q:'You\'ve received wide-left 25 m out and beaten the full-back inside with a body feint. You\'re now on the left corner of the D, ball on your right foot. The covering centre-back is 3 m off you and backing away. Our striker is central, marked, calling for it.',o:['Slide the striker in','Shoot — far-post curler','Another touch inside to get more central first','Look for the switch to the right winger'],a:1,
+     saw:'Zone A, defender more than a stride off and retreating. Sight of goal.',miss:'The striker calling for it. He\'s marked and the pass goes through the CB\'s line. You "look for a teammate instead of finishing a clear opportunity" — this is that exact moment.',why:'The shoot rule. Zone A + defender off you = shoot. Another touch lets the CB close and a midfielder recover. The curler from here is the highest-value shot an inverted winger gets.',def:'The CB is backing off because he\'s afraid of the pace. Backing off = shooting space.',team:'Striker\'s job here is to attack the rebound and the far post; your shot across goal creates that.',next:'Follow the shot in. Keepers spill curlers.',p:'In the zone, I shoot. A pass from the zone needs a reason — and "he\'s calling" isn\'t one.'},
+    {t:'Ball on the far side',q:'Our right winger has the ball on the right touchline, 25 m out, head coming up. You\'re on the left side of the box, level with the far post, with their right-back a metre goal-side of you.',o:['Stand still on the far post and wait','Drop 5 m to the edge of the box for a cutback','Check away from the RB towards the touchline, then attack the back post as he strikes','Sprint to the near post'],a:2,
+     saw:'Crosser\'s head is up: this is the trigger. A defender is between you and the ball at the far post.',miss:'Standing still (A) lets the RB stay goal-side and see both you and the ball. The double movement is what wins the position back.',why:'Two steps away make the RB either follow you (space opens inside him) or hold (you\'ve got a 2 m run-up to attack the ball in the air or on the ground). Arriving late at pace beats arriving early and standing.',def:'RB is watching the ball, not you. Every defender loses the far-post runner for a second when the cross is struck.',team:'Striker takes the near post and the RB\'s partner; you\'re alone at the back.',next:'Zone B finish: first-time inside foot across the keeper, or a cushioned touch and finish if it drops.',p:'Arrive, don\'t wait. Start from outside the defender\'s eyeline.'},
+    {t:'We\'ve just won it',q:'Our CM wins a tackle in the centre circle. You\'re wide-left, level with the ball. Their full-back has stepped up for the previous attack and is 5 m ahead of you, facing the wrong way. Their CB is 15 m behind him.',o:['Come short to give the CM a safe pass','Sprint in behind the FB immediately and point where you want it','Hold your position and wait to see if the CM keeps it','Drift inside to receive to feet'],a:1,
+     saw:'The FB is ahead of me and turned. There\'s 15 m of space behind him. We\'ve just won it — the first three seconds are the counter.',miss:'Waiting to see if he keeps it (C). By the time you know, the FB has turned and the space is gone.',why:'Transition is the moment your 10/10 acceleration is worth most: everyone else is reorganising. Even if the pass doesn\'t come, you\'ve dragged the FB and CB back 20 m.',def:'FB is turned; he needs a second to see you and a second to accelerate. That\'s 2 s you don\'t need.',team:'CM has just won it and will look forward first. Give him something to look at.',next:'If it comes: Zone D finish or cutback. If not: stay high and pin the line.',p:'Run first, ask later. Transitions reward the player who has already decided.'},
+    {t:'Tight marking, back to goal',q:'You\'ve come short to receive from our LB. Their full-back is tight on your back, touching you. The LB plays it into your feet. Our CM is 8 m inside you, free, facing forward.',o:['Turn with the ball','Hold it, shield, and wait for support','Bounce it first-time to the CM and spin in behind the FB','Take a touch and play it back to the LB'],a:2,
+     saw:'Pressure tight behind, a free teammate facing forward inside. That picture has one answer.',miss:'Trying to turn (A) is where your "receiving under pressure 3/10" comes from — you can\'t turn a tight defender with your first touch.',why:'One-touch play makes the tight defender\'s position useless: the ball\'s gone before they can foul or block. Your spin in behind punishes the FB for being tight — they\'re facing the wrong way to follow.',def:'The FB has committed to being tight. Tight defenders are beaten by one touch and a run, not by a turn.',team:'CM is free, facing forward and can play the third-man ball behind the FB you just spun off.',next:'The CM slides it in behind: you\'re 1v1 with the CB or in Zone D.',p:'Marker tight → bounce and spin. The reception is the run, not the touch.'},
+    {t:'After beating one',q:'You\'ve beaten the full-back down the line and you\'re 15 m from the byline. Their CB has come across to cover and is set 4 m in front of you. Their whole back line has shifted towards you. Our right winger is alone on the far side, 30 m away, with the whole right flank empty.',o:['Take on the CB too','Cut back inside onto the right and switch it to the far side','Cross it early','Stop and wait for the overlap'],a:1,
+     saw:'Second defender set. The team has shifted. The far side is empty. This is your existing strength: beat one, look up, see the space.',miss:'Taking on the second defender (A). Beating one is why the switch is on. Trying to beat two is where the ball gets lost and the counter comes.',why:'The switch attacks the space the whole defence has vacated. The far-side winger receives 1v1 or free, and you sprint for the back post to finish it.',def:'CB is set and has cover behind him. He\'s not the free man; the far side is.',team:'RW isolated 1v1 on the far side. Striker can attack a cross from there; you become the back-post runner.',next:'Ping it, then run: your back-post arrival makes the switch a chance, not just a pass.',p:'Beat one, ping. You already do this — now do it on purpose every time the second defender is set.'},
+    {t:'Byline, tight angle',q:'You\'ve gone outside the full-back at pace and reached the byline, 6 m wide of the post. Their keeper is on his near post. Our striker is arriving at the penalty spot, unmarked, and the covering CB is running back towards his own goal, facing it.',o:['Near-post shot','Cutback to the penalty spot','Chip to the back post','Take it round the keeper'],a:1,
+     saw:'Tight angle, keeper on his post, a free teammate arriving at the spot, a defender running towards his own goal.',miss:'Shooting from the tight angle. The keeper has the near post covered — the "shoot rule" applies to sight of goal, and here there is almost none.',why:'The cutback is the best delivery in football: the striker meets it running forward, the CB is running backwards and can\'t clear it without risking an own goal. This is your highest-value cross type as a right-footer on the left.',def:'A defender running towards his own goal can\'t defend the cutback. The keeper can\'t come for it either.',team:'Striker at the spot, arriving, facing the goal. Give it to him where he can hit it first-time.',next:'Pull it back with the inside of the right foot, low, in front of the spot. Then follow in for the rebound.',p:'Zone E: the cutback beats the shot when the angle is tight. Know the difference.'},
+    {t:'Just lost it',q:'You\'ve tried to beat the FB and he\'s nicked the ball. It\'s at his feet, 3 m from you, in their half. He\'s facing his own goal and hasn\'t looked up yet.',o:['Head down, jog back to position','Turn and sprint back to help the LB','Press him immediately — five seconds of everything','Appeal for a foul'],a:2,
+     saw:'The ball is within 5 m, in their half, and the defender is facing his own goal. That\'s the counterpress trigger.',miss:'The mistake wants you to go quiet (A). The reset puts you into an action instead. Pressing here isn\'t emotional — it\'s the best decision available.',why:'A defender facing his own goal with a winger on his back has no good options: back to the keeper (we press higher), down the line (our LB is set), or lose it (we\'re in their box). Winning it back within 5 seconds in their half is a chance.',def:'He\'s not set. The moment after a tackle is when the tackler is most vulnerable.',team:'LB is behind you and set; CM can screen the inside pass. Your press pushes him where the team wants him.',next:'Win it → shoot or cutback within 4 seconds. Miss → recovery run goal-side of him. Never the third option.',p:'Five-second reset: exhale, cue word, press. Lose it → win it back.'},
+    {t:'Build-up, our CB on the ball',q:'Our left CB has the ball with time. You\'re wide-left. Their full-back is 2 m inside you. Their winger has dropped to mark our LB. Our CM is asking for it inside, marked.',o:['Come short to the CB for a safe pass','Drift inside to help the CM','Stay maximum width and drop your shoulder to receive on the half-turn','Run in behind immediately'],a:2,
+     saw:'The CB has time — nobody needs an emergency pass. The FB is inside me, so width isolates him. The winger is busy with our LB.',miss:'Running in behind (D) is right when the passer\'s head is up and there\'s space behind — here the CB has time, so hold the picture and make him choose you. Coming short just brings the FB with you.',why:'Maximum width pins the FB and leaves him a choice: follow you (space inside for the CM), or stay (you receive 1v1 on the half-turn with him inside you, so your first touch goes outside).',def:'FB is caught between two jobs. Make him wrong whichever he chooses.',team:'LB is marked; CM is your inside option once the FB follows you.',next:'Receive half-turned, outside touch, drive — or one touch inside to the CM if the FB steps to you.',p:'Width is a movement. Discipline in build-up earns the 1v1 later.'},
+    {t:'In behind, 1v1 with the keeper',q:'You\'ve been slipped in behind. You\'re 18 m out, angle slightly left, the keeper is coming out fast and is already 8 m off his line. A CB is recovering 4 m behind you.',o:['Take a touch to steady yourself, then place it','Shoot early, low, across him','Try to round him','Wait for the striker to arrive and square it'],a:1,
+     saw:'Keeper coming fast: he\'s big now but he\'s off balance and can\'t change direction. The recovering CB is closing.',miss:'Steadying (A) or waiting (D) gives the CB the second he needs and lets the keeper set. Rounding him (C) works when he\'s slow or stopped, not sprinting at you.',why:'A keeper running towards you can\'t go sideways. A low shot across him to the far side beats his momentum. Early beats perfect.',def:'Keeper is committed. CB is behind — no block possible if you shoot now.',team:'Striker isn\'t there yet. If the keeper had stopped and set, the square ball would be an option. He hasn\'t.',next:'Strike and follow the ball in. Composure ladder routine: corner, ball, exhale, strike.',p:'Zone D: early and low across a keeper who\'s moving. Decide the corner before you look at the ball.'},
+    {t:'Full-back backing off',q:'You\'ve received wide-left 30 m out and turned. Their full-back is 6 m off you, backing away, cover behind him. He\'s square.',o:['Do a scissors to beat him','Drive straight at him at pace until he stops, then move','Pass inside and go for a one-two','Cross early'],a:1,
+     saw:'6 m of space, a defender retreating. Nothing to beat yet.',miss:'Doing a move at 6 m (A). Moves work at 1.5–2 m when the defender is set; at 6 m you\'re just showing off and losing speed. A "skill merchant" mistake.',why:'Carrying at him at pace forces him to plant or be run past. The moment he plants, you\'re 2 m away with speed and he\'s flat-footed — that\'s when the body feint or inside-outside works.',def:'A retreating defender is trying to buy time for cover. Don\'t give it to him.',team:'The one-two (C) becomes good once you\'ve drawn him and the cover has moved. Not yet.',next:'Big touches to 3 m, small touch to engage, move, exit big. Then shoot or cutback.',p:'Carry until they plant. The move is for a set defender, not a retreating one.'},
+    {t:'Team struggling, minute 70, losing 2–0',q:'Nothing\'s coming to you. The midfield is losing every second ball. You\'ve had three touches in 15 minutes and you feel yourself going quiet.',o:['Drift inside looking for the ball','Stay wide and wait — it\'s not your fault','Reset: name the next pressing trigger and the next run in behind, and do both in the next two minutes','Ask the coach to move you to the middle'],a:2,
+     saw:'The picture here is internal: attention has moved from the pitch to yourself. That\'s the "going quiet" pattern.',miss:'Drifting inside (A) makes the team narrower and takes away the out-ball; waiting (B) is the quiet getting louder.',why:'The three non-negotiables exist for exactly this. Pressing and running in behind don\'t need the ball. They put you back in the game physically, and they\'re how a wide player influences a match the team is losing — turnovers high up and a stretched defence.',def:'Their FB is comfortable because nobody has run at him for 15 minutes. Change that.',team:'A midfield losing second balls needs the ball played early into a runner. Be the runner.',next:'Press → run → receive → take him on. The game comes back to the player who keeps acting.',p:'Influence doesn\'t need the ball. The actions don\'t depend on the score.'}
+  ];
+  var sHost=document.getElementById('scenarios');
+  var done=store.get('scen',{});  // id -> {pick, first}
+  var L='ABCD';
+  function score(){var n=0,f=0,k=0;S.forEach(function(s,i){if(done[i]){n++;if(done[i].pick===s.a)k++;if(done[i].first===s.a)f++}});
+    document.getElementById('scoreNum').textContent=k;document.getElementById('scoreDen').textContent=S.length;
+    document.getElementById('scorePct').textContent=n?Math.round(100*f/n)+'%':'–'}
+  S.forEach(function(s,i){
+    var el=document.createElement('article');el.className='scen';el.id='sc'+i;
+    var opts=s.o.map(function(o,j){return '<button type="button" data-j="'+j+'"><span class="l">'+L[j]+'</span><span>'+o+'</span></button>'}).join('');
+    el.innerHTML='<div class="pitch"><p class="eyebrow">Scenario '+(i+1)+' · '+s.t+'</p><p class="q">'+s.q+'</p></div><div class="opts">'+opts+'</div>'+
+      '<div class="reveal"><p class="verdict"></p><dl><dt>What I saw</dt><dd>'+s.saw+'</dd><dt>What I missed</dt><dd>'+s.miss+'</dd><dt>Why it works</dt><dd>'+s.why+'</dd><dt>The defender</dt><dd>'+s.def+'</dd><dt>My teammates</dt><dd>'+s.team+'</dd><dt>Next action</dt><dd>'+s.next+'</dd></dl><p class="principle">'+s.p+'</p></div>';
+    var btns=el.querySelectorAll('.opts button');
+    function show(pick){
+      el.classList.add('done');
+      btns.forEach(function(b,j){b.disabled=true;if(j===s.a)b.classList.add('right');else if(j===pick)b.classList.add('wrong')});
+      var v=el.querySelector('.verdict');
+      if(pick===s.a){v.textContent='Correct — '+L[s.a];v.className='verdict ok'}else{v.textContent='Not this time. Best option: '+L[s.a];v.className='verdict no'}
+    }
+    btns.forEach(function(b){b.addEventListener('click',function(){var j=+b.dataset.j;if(!done[i])done[i]={first:j};done[i].pick=j;store.set('scen',done);show(j);score()})});
+    if(done[i]&&done[i].pick!=null)show(done[i].pick);
+    sHost.appendChild(el);
+  });
+  score();
+  document.getElementById('resetScen').addEventListener('click',function(){
+    done={};store.del('scen');
+    sHost.querySelectorAll('.scen').forEach(function(el){el.classList.remove('done');el.querySelectorAll('button').forEach(function(b){b.disabled=false;b.className=''})});
+    score();toast('Lab reset');
+  });
+
+  /* ---------- notes ---------- */
+  ['rvNotes','rvWatch'].forEach(function(id){var t=document.getElementById(id);t.value=store.get(id,'');var d;t.addEventListener('input',function(){clearTimeout(d);d=setTimeout(function(){store.set(id,t.value);toast('Saved')},500)})});
+
+  /* ---------- nav highlight ---------- */
+  var links=[].slice.call(document.querySelectorAll('nav.side a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){if(s)io.observe(s)});
+  }
+})();
+</script>
+<script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  }
+</script>
+</body>
+</html>
