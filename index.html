@@ -62,7 +62,7 @@ nav.side a .k{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
 nav.side a:hover,nav.side a:focus-visible{background:var(--sunk);outline:none}
 nav.side a.on{background:var(--ink);color:var(--bg)}
 nav.side a.on .k{color:var(--accent)}
-main{min-width:0;padding-block:28px 96px;padding-left:40px}
+main{min-width:0;padding-block:28px 96px;padding-left:40px;overflow-x:clip}
 @media (max-width:900px){
   .shell{grid-template-columns:minmax(0,1fr)}
   main{padding-left:0}
@@ -221,7 +221,7 @@ tr:last-child td{border-bottom:0}
 textarea{width:100%;min-height:90px;font:inherit;font-size:.92rem;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);resize:vertical}
 textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 label.f{display:grid;gap:5px;font-size:.85rem;color:var(--muted)}
-.hero{padding-block:34px 44px;border-bottom:1px solid var(--line);display:grid;gap:22px}
+.hero{padding-block:34px 44px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
 .hero .id{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:760px}
 .hero .id div{border-top:2px solid var(--ink);padding-top:6px}
 .hero .id .eyebrow{display:block;margin-bottom:2px}
