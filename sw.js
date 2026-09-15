@@ -1,5 +1,5 @@
 /* Roqz Pro Academy offline cache: saves the app shell on first visit, serves it when there's no signal. */
-var CACHE = 'roqz-v3';
+var CACHE = 'roqz-v4';
 
 self.addEventListener('install', function(e){
   e.waitUntil(
@@ -20,7 +20,8 @@ self.addEventListener('fetch', function(e){
   var req = e.request;
   var isPage = req.mode === 'navigate';
   e.respondWith(
-    fetch(req).then(function(res){
+    // Pages are always re-checked with the server so an update shows on the next open, not 10 minutes later.
+    fetch(isPage ? new Request(req, {cache:'no-cache'}) : req).then(function(res){
       // Fresh copy arrived: keep it for next time (page, fonts, anything GET).
       var copy = res.clone();
       caches.open(CACHE).then(function(c){ c.put(isPage ? './' : req, copy); }).catch(function(){});
